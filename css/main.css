@@ -98,3 +98,12 @@ a {
   border-radius: 50px;
   cursor: pointer;
 }
+
+/* advertisement-section */
+
+.advertisement-section {
+  width: 1440px;
+  height: 74px;
+  background-color: #DEE6F3;
+  margin: 0 auto;
+}
