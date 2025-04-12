@@ -6,4 +6,55 @@
   font-family: Roboto;
 }
 
+body {
+  background-image: url(../img/main-img.png);
+  background-repeat: no-repeat;
+  background-position: center 0;
+  height: 100vh;
+}
 
+a {
+  text-decoration: none;
+}
+
+/* header */
+
+.header {
+  width: 1440px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.header-nav-container {
+  margin-top: 24px;
+  margin-left: 42px;
+}
+
+.header-nav-list {
+  display: flex;
+  list-style: none;
+}
+
+.header-nav-list-item {
+  margin-right: 45px;
+}
+
+.header-nav-list-link {
+  font-size: 14px;
+  letter-spacing: 0.13em;
+  color: #5326d4;
+}
+
+.header-main-logo {
+  margin-left: 252px;
+  margin-top: 20px;
+}
+
+.header-image {
+  margin-left: 556px;
+  margin-top: 20px;
+}
+
+.header-image-basket {
+  margin-right: 36px;
+}
