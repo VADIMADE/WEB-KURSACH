@@ -198,4 +198,48 @@ a {
   left: 105px;
 }
 
+/* shop-section */
+
+.shop-section {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.shop-sec-button {
+  width: 245px;
+  height: 53px;
+  font-size: 17px;
+  line-height: 164%;
+  text-align: center;
+  color: #fff;
+  background-color: #4144BF;
+  border: none;
+  border-radius: 40px;
+  margin: 110px 0 0 598px;
+}
+
+/* intro-section */
+
+.intro-section {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.intro-sec-main-container {
+  padding-top: 42px;
+  display: flex;
+}
+
+.intro-sec-video-container {
+  position: relative;
+}
+
+.intro-sec-video-image {
+  margin-left: 20px;
+  position: absolute;
+}
+
+.intro-sec-description-container {
+  position: relative;
+}
 
