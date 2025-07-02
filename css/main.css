@@ -367,3 +367,218 @@ button, label[type="submit"] {
 .process-sec-image-container img {
   margin-top: 360px;
 }
+
+/* products-section */
+
+.products-section {
+  padding-top: 158px;
+}
+
+.products-section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-sec-grid1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 42px;
+  grid-row-gap: 57px;
+  padding-bottom: 64px;
+}
+
+.products-sec-description-container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 7px;
+  padding-bottom: 8px;
+}
+
+.products-sec-description-text1 {
+  font-size: 19px;
+  color: #172345;
+}
+
+.products-sec-description-text2 {
+  font-size: 15px;
+  color: #aaa;
+}
+
+.products-sec-description-price1 {
+  font-size: 19px;
+  color: #0038d2;
+}
+
+.products-sec-description-price2 {
+  font-size: 16px;
+  text-align: right;
+  color: #172345;
+}
+
+.products-sec-estimation {
+  display: inline-block;
+  margin-right: 14px;
+  font-size: 13px;
+  color: #172345;
+}
+
+.products-sec-circles-container {
+  display: flex;
+  gap: 5px;
+  padding-top: 8px;
+}
+
+.products-sec-circle1 {
+  border-radius: 32px;
+  width: 22px;
+  height: 22px;
+  background-color: #85ccc8;
+}
+
+.products-sec-circle2 {
+  border-radius: 32px;
+  width: 22px;
+  height: 22px;
+  background-color: #8996b7;
+}
+
+.products-sec-circle3 {
+  border-radius: 32px;
+  width: 22px;
+  height: 22px;
+  background-color: #ffbbb8;
+}
+
+.products-sec-estimation-stars {
+  font-size: 20px;
+  letter-spacing: -2px;
+}
+
+.products-sec-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 42px;
+}
+
+/* subscription-section */
+
+.subscription-section {
+  background-image: url(../img/subscription-sec.png);
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-size: cover;
+  text-align: center;
+  min-height: 1508px;
+  margin-top: 41px;
+}
+
+.subscription-section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscription-sec-title {
+  font-size: 55px;
+  line-height: 80%;
+  letter-spacing: 0.05em;
+  color: #172345;
+  width: 510px;
+  padding-top: 612px;
+  padding-bottom: 65px;
+}
+
+.subscription-sec-description {
+  font-size: 25px;
+  line-height: 126%;
+  color: #172345;
+  width: 465px;
+  padding-bottom: 30px;
+}
+
+.subscription-sec-button {
+  font-size: 23px;
+  text-align: center;
+  color: #fff;
+  background-color: #4144BF;
+  border: none;
+  border-radius: 6px;
+  padding: 19px 55px 19px 55px;
+}
+
+.subscription-sec-price {
+  font-size: 12px;
+  letter-spacing: 0.17em;
+  text-align: center;
+  color: #172345;
+  padding-top: 33px;
+}
+
+.subscription-sec-options-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 82px;
+  padding-top: 292px;
+}
+
+.subscription-sec-options-title {
+  font-size: 23px;
+  text-align: center;
+  color: #172345;
+  padding-top: 13px;
+}
+
+.subscription-sec-options-title1 {
+  font-size: 23px;
+  text-align: center;
+  color: #172345;
+}
+
+.subscription-sec-options-description {
+  font-size: 11px;
+  text-align: center;
+  color: #172345;
+  width: 297px;
+  padding-top: 15px;
+  line-height: 200%;
+}
+
+/* sustainability-section */
+
+.sustainability-section {
+  background-image: url(../img/sustainability-sec-background.png);
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-size: cover;
+  text-align: center;
+  min-height: 773px;
+}
+
+.sustainability-section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 52px;
+}
+
+.sustainability-sec-title {
+  font-size: 70px;
+  line-height: 157%;
+  letter-spacing: 0.08em;
+  color: #172345;
+}
+
+.sustainability-sec-description {
+  font-size: 23px;
+  line-height: 172%;
+  letter-spacing: 0.06em;
+  color: #172345;
+  width: 676px;
+}
+
+.sustainability-sec-text {
+  font-size: 24px;
+  line-height: 164%;
+  color: #324477;
+}
