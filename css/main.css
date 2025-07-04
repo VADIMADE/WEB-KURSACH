@@ -582,3 +582,135 @@ button, label[type="submit"] {
   line-height: 164%;
   color: #324477;
 }
+
+/* reviews-section */
+
+.reviews-section .container {
+  display: flex;
+  justify-content: center;
+  padding: 145px 0 128px 0;
+  gap: 50px;
+}
+
+.reviews-sec-title-container {
+  
+}
+
+.reviews-sec-title {
+  font-size: 56px;
+  line-height: 94%;
+  letter-spacing: 0.06em;
+  color: #172345;
+  width: 466px;
+  padding-bottom: 25px;
+}
+
+.reviews-sec-description {
+  font-size: 24px;
+  line-height: 206%;
+  letter-spacing: 0.05em;
+  color: #172345;
+  width: 466px;
+  padding-bottom: 25px;
+}
+
+.reviews-sec-text {
+  font-size: 22px;
+  color: #0038d2;
+}
+
+.reviews-sec-feedback-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  gap: 60px;
+}
+
+.reviews-sec-circle {
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  background: #fff;
+}
+
+.reviews-sec-feedback-title {
+  font-size: 15px;
+  line-height: 219%;
+  color: #415286;
+}
+
+.reviews-sec-feedback-description {
+  font-size: 21px;
+  line-height: 157%;
+  color: #415286;
+  width: 294px;
+}
+
+.reviews-sec-feedback-text {
+  font-size: 12px;
+  line-height: 178%;
+  color: #000;
+  padding-top: 20px;
+}
+
+/* footer */
+
+footer {
+  background-image: url(../img/footer-background.png);
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-size: cover;
+  min-height: 899px;
+}
+
+.footer-logo {
+  padding-left: 165px;
+  padding-top: 31px;
+  padding-bottom: 23px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-row-gap: 25px;
+  padding-left: 165px;
+  /* width: 1305px; */
+}
+
+.footer-grid-card-title {
+  font-size: 23px;
+  color: #172345;
+}
+
+.footer-grid-card-description {
+  font-size: 18px;
+  color: #6c77b5;
+  padding-top: 18px;
+}
+
+.footer-production-text {
+  font-size: 19px;
+  text-align: center;
+  color: #172345;
+  padding-top: 57px;
+}
+
+.footer-production-image {
+  display: block;
+  margin: auto;
+  margin-top: 15px;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 42px;
+  padding-top: 40px;
+}
+
+.footer-nav a {
+  font-size: 14px;
+  color: #6c77b5;
+}
