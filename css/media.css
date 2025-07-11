@@ -1,0 +1,26 @@
+@media (max-width: 1340px) {
+
+
+
+
+}
+
+
+@media (max-width: 830px) {
+  .header-nav {
+    display: none;
+  }
+
+  .header-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+
+
+
+
+  
+
+}
