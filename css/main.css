@@ -56,16 +56,22 @@ button, label[type="submit"] {
   max-width: 1386px;
 }
 
-.header-menu {
+.header-menu-hamb {
   display: none;
   width: 40px;
-  height: 20px;
+  height: 30px;
 }
 
-.header-menu span {
-  background-color: #000;
-  height: 2px;
-  width: 100%;
+.header-menu-hamb .bar {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: #4144BF;
+  transition: 0.3s;
+}
+
+.popup {
+  display: none;
 }
 
 .header-nav {
@@ -154,15 +160,30 @@ button, label[type="submit"] {
 
 .advertisement-section {
   background-color: #DEE6F3;
-  padding: 22px 0 22px 0;
+  padding: 22px 0;
 }
 
 .advertisement-section .container {
+  padding: 0;
+  overflow: hidden;
+}
+
+.advertisement-section .container div {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  width: 200%;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* offer-section */
@@ -237,35 +258,7 @@ button, label[type="submit"] {
 
 .offer-sec-descirption-card-container {
   position: relative;
-  /* background-image: url(../img/offer-image1.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  text-align: center;
-  min-height: 455px;
-  width: 350px;
-  filter: brightness(60%); */
 }
-
-/* .offer-sec-descirption-card-container2 {
-  position: relative;
-  background-image: url(../img/offer-image2.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  text-align: center;
-  min-height: 455px;
-  width: 350px;
-}
-
-.offer-sec-descirption-card-container3 {
-  position: relative;
-  background-image: url(../img/offer-image3.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  text-align: center;
-  min-height: 455px;
-  width: 350px;
-  filter: brightness(60%);
-} */
 
 .offer-sec-descirption-card-image1 {
   filter: brightness(60%);
@@ -284,9 +277,10 @@ button, label[type="submit"] {
   display: flex;
   flex-direction: column;
   gap: 13px;
+  width: 90%;
 }
 
-.offer-sec-descirption-card-title {
+.offer-sec-descirption-card-title { 
   font-size: 23px;
   color: #000;
 }
@@ -303,10 +297,10 @@ button, label[type="submit"] {
   padding-top: 88px;
 }
 
-.shop-section .container {
+.shop-sec-hr-container {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 310px;
 }
 
 .shop-sec-hr {
@@ -324,14 +318,14 @@ button, label[type="submit"] {
   background-color: #4144BF;
   border: none;
   border-radius: 40px;
-  margin-top: 28px;
+  margin-top: 20px;
   letter-spacing: -0.04em;
 }
 
 /* intro-section */
 
 .intro-section {
-  padding-top: 42px;
+  padding-top: 44px;
 }
 
 .intro-section .container {
@@ -343,19 +337,16 @@ button, label[type="submit"] {
   position: relative;
 }
 
-.intro-sec-video-image {
-  margin-left: 5px;
-}
-
 .intro-sec-description-container {
+  width: 678px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding-top: 190px;
-  margin-right: 113px;
 }
 
 .intro-sec-description-image {
-  padding-bottom: 15px;
+  margin-bottom: 14px;
 }
 
 .intro-sec-description-text {
@@ -371,6 +362,7 @@ button, label[type="submit"] {
   background-image: url(../img/plastic-free2-sec.png);
   background-repeat: no-repeat;
   background-position: center 76px;
+  background-size: cover;
   text-align: center;
   min-height: 760px;
   padding-top: 100px;
@@ -387,6 +379,7 @@ button, label[type="submit"] {
   line-height: 115%;
   letter-spacing: 0.07em;
   color: #172345;
+  width: 450px;
   margin-bottom: 19px;
 }
 
@@ -443,7 +436,7 @@ button, label[type="submit"] {
 }
 
 .process-sec-image-container {
-  padding-top: 250px;
+  margin-top: 250px;
 }
 
 /* products-section */
@@ -564,8 +557,8 @@ button, label[type="submit"] {
   letter-spacing: 0.05em;
   color: #172345;
   width: 510px;
-  padding-top: 612px;
-  padding-bottom: 65px;
+  margin-top: 612px;
+  margin-bottom: 65px;
 }
 
 .subscription-sec-subtitle {
@@ -573,7 +566,7 @@ button, label[type="submit"] {
   line-height: 126%;
   color: #172345;
   width: 465px;
-  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .subscription-sec-button {
@@ -591,21 +584,21 @@ button, label[type="submit"] {
   letter-spacing: 0.17em;
   text-align: center;
   color: #172345;
-  padding-top: 33px;
+  margin-top: 33px;
 }
 
 .subscription-sec-options-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 82px;
-  padding-top: 292px;
+  margin-top: 292px;
 }
 
 .subscription-sec-options-title {
   font-size: 23px;
   text-align: center;
   color: #172345;
-  padding-top: 13px;
+  margin-top: 13px;
 }
 
 .subscription-sec-options-title1 {
@@ -619,7 +612,7 @@ button, label[type="submit"] {
   text-align: center;
   color: #172345;
   width: 297px;
-  padding-top: 15px;
+  margin-top: 15px;
   line-height: 200%;
 }
 
@@ -661,10 +654,13 @@ button, label[type="submit"] {
 
 /* reviews-section */
 
+.reviews-section {
+  padding: 145px 0 128px 0;
+}
+
 .reviews-section .container {
   display: flex;
   justify-content: center;
-  padding: 145px 0 128px 0;
   gap: 50px;
 }
 
@@ -674,7 +670,7 @@ button, label[type="submit"] {
   letter-spacing: 0.06em;
   color: #172345;
   width: 466px;
-  padding-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .reviews-sec-description {
@@ -683,7 +679,7 @@ button, label[type="submit"] {
   letter-spacing: 0.05em;
   color: #172345;
   width: 466px;
-  padding-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .reviews-sec-text {
@@ -711,6 +707,7 @@ button, label[type="submit"] {
   font-size: 15px;
   line-height: 219%;
   color: #415286;
+  margin-bottom: 20px;
 }
 
 .reviews-sec-feedback-description {
@@ -724,7 +721,7 @@ button, label[type="submit"] {
   font-size: 12px;
   line-height: 178%;
   color: #000;
-  padding-top: 20px;
+  margin-top: 20px;
 }
 
 /* footer */

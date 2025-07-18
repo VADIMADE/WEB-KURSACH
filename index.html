@@ -6,22 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="./css/media.css">
-  <script src="./js/main.js"></script>
   <title>KURSACH</title>
 </head>
 
 <body>
   <header class="header">
     <div class="container">
-      <button class="header-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="header-menu-hamb">
+        <div class="header-menu-hamb-field" id="header-menu-hamb">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      <div class="popup" id="popup"></div>
 
       <nav class="header-nav">
-        <ul class="header-list">
+        <ul class="header-list" id="menu">
           <li class="header-item">
             <a class="header-link" href="#!">SHOP</a>
           </li>
@@ -37,12 +39,8 @@
       <a href="#!"><img class="header-logo" src="./img/header-logo.png" alt="logo-Bite"></a>
 
       <div class="header-image">
-        <a href="#!">
-          <img class="header-image-basket" src="./img/header-basket.png" alt="image-basket">
-        </a>
-        <a href="#!">
-          <img class="header-image-account" src="./img/header-account.png" alt="image-account">
-        </a>
+        <a href="#!"><img class="header-image-basket" src="./img/header-basket.png" alt="image-basket"></a>
+        <a href="#!"><img class="header-image-account" src="./img/header-account.png" alt="image-account"></a>
       </div>
     </div>
   </header>
@@ -51,24 +49,36 @@
     <section class="main-section">
       <div class="container">
         <p class="main-sec-title">Toothpaste, reinvented</p>
-        <p class="main-sec-description">The only plastic-free and clean way to replace the paste you've used your whole
-          life.</p>
+        <p class="main-sec-description">The only plastic-free and clean way to replace the paste you've used your whole life.</p>
         <button class="main-sec-button">shop now</button>
       </div>
     </section>
 
     <section class="advertisement-section">
       <div class="container">
-        <img src="./img/panel-img1.png" alt="image-panel-brand">
-        <img src="./img/panel-img2.png" alt="image-panel-brand">
-        <img src="./img/panel-img3.png" alt="image-panel-brand">
-        <img src="./img/panel-img4.png" alt="image-panel-brand">
-        <img src="./img/panel-img5.png" alt="image-panel-brand">
-        <img src="./img/panel-img6.png" alt="image-panel-brand">
-        <img src="./img/panel-img7.png" alt="image-panel-brand">
-        <img src="./img/panel-img8.png" alt="image-panel-brand">
-        <img src="./img/panel-img9.png" alt="image-panel-brand">
-        <img src="./img/panel-img10.png" alt="image-panel-brand">
+        <div>
+          <img src="./img/panel-img1.png" alt="image-panel-brand">
+          <img src="./img/panel-img2.png" alt="image-panel-brand">
+          <img src="./img/panel-img3.png" alt="image-panel-brand">
+          <img src="./img/panel-img4.png" alt="image-panel-brand">
+          <img src="./img/panel-img5.png" alt="image-panel-brand">
+          <img src="./img/panel-img6.png" alt="image-panel-brand">
+          <img src="./img/panel-img7.png" alt="image-panel-brand">
+          <img src="./img/panel-img8.png" alt="image-panel-brand">
+          <img src="./img/panel-img9.png" alt="image-panel-brand">
+          <img src="./img/panel-img10.png" alt="image-panel-brand">
+        
+          <img src="./img/panel-img1.png" alt="image-panel-brand">
+          <img src="./img/panel-img2.png" alt="image-panel-brand">
+          <img src="./img/panel-img3.png" alt="image-panel-brand">
+          <img src="./img/panel-img4.png" alt="image-panel-brand">
+          <img src="./img/panel-img5.png" alt="image-panel-brand">
+          <img src="./img/panel-img6.png" alt="image-panel-brand">
+          <img src="./img/panel-img7.png" alt="image-panel-brand">
+          <img src="./img/panel-img8.png" alt="image-panel-brand">
+          <img src="./img/panel-img9.png" alt="image-panel-brand">
+          <img src="./img/panel-img10.png" alt="image-panel-brand">
+        </div>
       </div>
     </section>
 
@@ -112,9 +122,11 @@
 
     <section class="shop-section">
       <div class="container">
-        <hr class="shop-sec-hr">
+        <div class="shop-sec-hr-container">
+          <hr class="shop-sec-hr">
+          <hr class="shop-sec-hr">
+        </div>
         <button class="shop-sec-button">SHOP ALL PRODUCTS</button>
-        <hr class="shop-sec-hr">
       </div>
     </section>
 
@@ -135,7 +147,7 @@
 
     <section class="plastic-free-section">
       <div class="container">
-        <p class="plastic-free-sec-title">No plastic <br> ever</p>
+        <p class="plastic-free-sec-title">No plastic ever</p>
         <p class="plastic-free-sec-description">We’ve delivered millions of smiles without <br> a single plastic tube
           entering a landfill.</p>
         <button class="plastic-free-sec-button">Why this matters</button>
@@ -146,9 +158,9 @@
       <div class="container">
         <div class="process-sec-description-container">
           <p class="process-sec-link">HOW TO</p>
-          <p class="process-sec-title">Easy asbite, brush, smile repeat,</p>
+          <p class="process-sec-title">Easy asbite, brush, smile repeat</p>
           <p class="process-sec-description">Bite down on your Bit <br> Brush with a wet toothbrush <br> Smile and watch
-            it foam up like <br> magic <br> Repeat twice a day, every day <br> Shop now</p>
+            it foam up like magic <br> Repeat twice a day, every day <br> Shop now</p>
         </div>
         <div class="process-sec-image-container">
           <img src="./img/process-sec-img.png" alt="image">
@@ -543,6 +555,7 @@
     </div>
   </footer>
 
+  <script src="./js/main.js"></script>
 
 </body>
 
