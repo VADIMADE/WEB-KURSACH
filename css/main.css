@@ -8,6 +8,8 @@
 
 .header {
   padding-top: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .header .container {
@@ -125,26 +127,9 @@
 }
 
 .advertisement-section .container {
-  padding: 0;
-  overflow: hidden;
-}
-
-.advertisement-section .container div {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 200%;
-  animation: marquee 10s linear infinite;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
 }
 
 /* offer-section */
@@ -320,12 +305,12 @@
 /* plastic-free-section */
 
 .plastic-free-section {
-  background-image: url(../img/plastic-free2-sec.png);
+  background-image: url(../img/plastic-free-sec.png);
   background-repeat: no-repeat;
-  background-position: center 76px;
+  background-position: center 0;
   background-size: cover;
   text-align: center;
-  min-height: 760px;
+  min-height: 770px;
   padding-top: 100px;
 }
 
@@ -377,7 +362,7 @@
   color: #172345;
   border-bottom: 2px solid #F5B4A4;
   padding-bottom: 5px;
-  margin: 125px 0 54px 40px;
+  margin: 115px 0 54px 40px;
 }
 
 .process-sec-title {
@@ -397,7 +382,7 @@
 }
 
 .process-sec-image-container {
-  margin-top: 250px;
+  margin-top: 240px;
 }
 
 /* products-section */
@@ -416,7 +401,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 42px;
-  grid-row-gap: 57px;
+  grid-row-gap: 53px;
   padding-bottom: 64px;
   flex-wrap: wrap;
 }
