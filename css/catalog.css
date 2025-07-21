@@ -81,15 +81,115 @@
 
 .main-section .container {
   display: flex;
-  justify-content: space-between;
+  gap: 40px;
 }
 
-.sort-container {
+.controls-container {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
   width: 300px;
 }
 
+.search-text {
+  font-size: 20px;
+  color: #5326d4;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
 
+.search-container input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sort-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.sort-text {
+  font-size: 20px;
+  color: #5326d4;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.category-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-text {
+  font-size: 20px;
+  color: #5326d4;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.category-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.category-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.array-methods-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.array-methods-buttons button {
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.array-methods-buttons button:hover {
+  background-color: #e0e0e0;
+}
+
+.no-products-message {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #666;
+  text-align: center;
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+}
 
 .products-container {
   display: grid;
@@ -158,6 +258,35 @@
 
 .products-link:active {
   background-color: #002da7;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pagination-button,
+.pagination-number {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pagination-number.active {
+  background-color: #002da7;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* footer */

@@ -1,5 +1,3 @@
-/* header-menu-hamb */
-
 const hamb = document.querySelector("#header-menu-hamb");
 const popup = document.querySelector("#popup");
 const menu = document.querySelector("#menu").cloneNode(1);
@@ -18,4 +16,3 @@ function hambHandler(e) {
 function renderPopup() {
   popup.appendChild(menu);
 }
-

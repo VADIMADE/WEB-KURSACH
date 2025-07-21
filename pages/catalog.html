@@ -55,132 +55,78 @@
     <section class="main-section">
       <div class="container">
 
-        <div class="sort-container">
-          
+        <div class="controls-container">
+          <div class="search-container">
+            <p class="search-text">SEARCH</p>
+            <input type="text" id="search-input" placeholder="Search products">
+          </div>
+      
+          <div class="filters-container">
+            <div class="sort-container">
+              <p class="sort-text">SORT BY</p>
+              <select id="sort-select">
+                <option value="">Default</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="rating-asc">Rating (Low to High)</option>
+                <option value="rating-desc">Rating (High to Low)</option>
+              </select>
+            </div>
+    
+            <div class="category-container">
+              <p class="category-text">CATEGORIES</p>
+              <div class="category-checkboxes">
+                <label>
+                  <input type="checkbox" name="category" value="Toothpaste">Toothpaste
+                </label>
+                <label>
+                  <input type="checkbox" name="category" value="Mouthwash">Mouthwash
+                </label>
+                <label>
+                  <input type="checkbox" name="category" value="Whitening">Whitening
+                </label>
+                <label>
+                  <input type="checkbox" name="category" value="Floss">Floss
+                </label>
+                <label>
+                  <input type="checkbox" name="category" value="Toothbrush">Toothbrush
+                </label>
+                <label>
+                  <input type="checkbox" name="category" value="Kit">Kit
+                </label>
+              </div>
+            </div>
+          </div>
+      
+          <div class="array-methods-buttons">
+            <button data-method="original">Original</button>
+            <button data-method="map">Map (Add $5)</button>
+            <button data-method="filter">Filter (>$20)</button>
+            <button data-method="sort-price-asc">Sort (Price ↑)</button>
+            <button data-method="sort-price-desc">Sort (Price ↓)</button>
+            <button data-method="sort-rating-desc">Sort (Rating ↓)</button>
+            <button data-method="reduce">Total Value</button>
+            <button data-method="some">Has 5★ Products</button>
+            <button data-method="every">All 4.9+ Rating</button>
+            <button data-method="find">Find Whitening</button>
+          </div>
         </div>
 
-        <div class="products-container">
-          <div class="products-card">
-            <a href="#!">
-              <img src="../img/product1-img.png" alt="image">
-            </a>
-            <div class="products-card-description-container">
-              <div class="products-card-desc-text-container">
-                <p class="products-text1">Fresh Mint</p>
-                <p class="products-text2">Toothpaste</p>
-              </div>
-              <div class="products-card-desc-price-container">
-                <p class="products-price1">$30</p>
-                <p class="products-price2">$48</p>
-              </div>
-            </div>
-            <p class="products-estimation">Rated 4.9 out of 5</p>
-            <p class="products-estimation">10,368 Reviews</p>
-            <p class="products-estimation-stars">★★★★★</p>
-            <div class="products-card-link-container">
-              <a class="products-link" href="#!">ADD TO CART</a>
-            </div>
+        <div class="main-container">
+          <div class="products-container" id="products-container">
+  
           </div>
+          <div class="pagination-container">
+            <button class="pagination-button" id="prev-page">&laquo;</button>
+            <div class="pagination-numbers" id="pagination-numbers"></div>
+            <button class="pagination-button" id="next-page">&raquo;</button>
+          </div>
+        </div>
 
-          <div class="products-card">
-            <a href="#!"><img src="../img/product2-img.png" alt="image"></a>
-            <div class="products-card-description-container">
-              <div class="products-card-desc-text-container">
-                <p class="products-text1">Fresh Mint</p>
-                <p class="products-text2">Toothpaste</p>
-              </div>
-              <div class="products-card-desc-price-container">
-                <p class="products-price1">$30</p>
-                <p class="products-price2">$48</p>
-              </div>
-            </div>
-            <p class="products-estimation">Rated 4.9 out of 5</p>
-            <p class="products-estimation">10,368 Reviews</p>         
-            <p class="products-estimation-stars">★★★★★</p>
-            <div class="products-card-link-container">
-              <a class="products-link" href="#!">ADD TO CART</a>
-            </div>
-          </div>
-
-          <div class="products-card">
-            <a href="#!"><img src="../img/product3-img.png" alt="image"></a>
-            <div class="products-card-description-container">
-              <div class="products-card-desc-text-container">
-                <p class="products-text1">Fresh Mint</p>
-                <p class="products-text2">Toothpaste</p>
-              </div>
-              <div class="products-card-desc-price-container">
-                <p class="products-price1">$30</p>
-                <p class="products-price2">$48</p>
-              </div>
-            </div>
-            <p class="products-estimation">Rated 4.9 out of 5</p>
-            <p class="products-estimation">10,368 Reviews</p>         
-            <p class="products-estimation-stars">★★★★★</p>
-            <div class="products-card-link-container">
-              <a class="products-link" href="#!">ADD TO CART</a>
-            </div>
-          </div>
-
-          <div class="products-card">
-            <a href="#!"><img src="../img/product4-img.png" alt="image"></a>
-            <div class="products-card-description-container">
-              <div class="products-card-desc-text-container">
-                <p class="products-text1">Fresh Mint</p>
-                <p class="products-text2">Toothpaste</p>
-              </div>
-              <div class="products-card-desc-price-container">
-                <p class="products-price1">$30</p>
-                <p class="products-price2">$48</p>
-              </div>
-            </div>
-            <p class="products-estimation">Rated 4.9 out of 5</p>
-            <p class="products-estimation">10,368 Reviews</p>         
-            <p class="products-estimation-stars">★★★★★</p>
-            <div class="products-card-link-container">
-              <a class="products-link" href="#!">ADD TO CART</a>
-            </div>
-          </div>
-
-          <div class="products-card">
-            <a href="#!"><img src="../img/product5-img.png" alt="image"></a>
-            <div class="products-card-description-container">
-              <div class="products-card-desc-text-container">
-                <p class="products-text1">Fresh Mint</p>
-                <p class="products-text2">Toothpaste</p>
-              </div>
-              <div class="products-card-desc-price-container">
-                <p class="products-price1">$30</p>
-                <p class="products-price2">$48</p>
-              </div>
-            </div>
-            <p class="products-estimation">Rated 4.9 out of 5</p>
-            <p class="products-estimation">10,368 Reviews</p>         
-            <p class="products-estimation-stars">★★★★★</p>
-            <div class="products-card-link-container">
-              <a class="products-link" href="#!">ADD TO CART</a>
-            </div>
-          </div>
-
-          <div class="products-card">
-            <a href="#!"><img src="../img/product6-img.png" alt="image"></a>
-            <div class="products-card-description-container">
-              <div class="products-card-desc-text-container">
-                <p class="products-text1">Fresh Mint</p>
-                <p class="products-text2">Toothpaste</p>
-              </div>
-              <div class="products-card-desc-price-container">
-                <p class="products-price1">$30</p>
-                <p class="products-price2">$48</p>
-              </div>
-            </div>
-            <p class="products-estimation">Rated 4.9 out of 5</p>
-            <p class="products-estimation">10,368 Reviews</p>         
-            <p class="products-estimation-stars">★★★★★</p>
-            <div class="products-card-link-container">
-              <a class="products-link" href="#!">ADD TO CART</a>
-            </div>
-          </div>
+        <div class="no-products-message" id="no-products-message">
+          No products found matching your criteria.
         </div>
       </div>
     </section>
@@ -330,6 +276,8 @@
       </nav>
     </div>
   </footer>
+
+  <script src="../js/catalog.js"></script>
 
 </body>
 
