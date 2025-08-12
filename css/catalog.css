@@ -241,11 +241,11 @@
 
 .products-card-link-container {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 10px;
 }
 
-.products-link {
+.add-to-cart {
   font-size: 20px;
   width: 100%;
   color: #fff;
@@ -256,7 +256,21 @@
   transition: background-color 0.3s;
 }
 
-.products-link:active {
+.add-to-cart:active {
+  background-color: #002da7;
+}
+
+.add-to-favorites {
+  font-size: 20px;
+  color: #fff;
+  background-color: #0038d2;
+  padding: 10px 15px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.add-to-favorites:active {
   background-color: #002da7;
 }
 

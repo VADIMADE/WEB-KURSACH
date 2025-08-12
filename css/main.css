@@ -66,6 +66,10 @@
   gap: 30px;
 }
 
+.header-image-favorites {
+  height: 100%;
+}
+
 .header-image-basket {
   height: 100%;
 }
@@ -100,17 +104,17 @@
   width: 600px;
   margin: 0 auto;
   line-height: 144%;
-  margin-bottom: 27px;
+  margin-bottom: 25px;
 }
 
 .main-sec-button {
+  display: inline-block;
   font-size: 18px;
   color: #4144bf;
   background-color: #fff;
   border: 3px solid #4144BF;
-  width: 149px;
-  height: 58px;
   border-radius: 50px;
+  padding: 15px 33px;
   transition: 0.35s;
 }
 
@@ -158,8 +162,8 @@
 .offer-sec-description-container {
   display: flex;
   align-items: center;
-  gap: 46px;
-  margin-top: 74px;
+  gap: 48px;
+  margin-top: 75px;
 }
 
 .offer-sec-description-text-container {
@@ -180,14 +184,14 @@
 }
 
 .offer-sec-description-text-button {
+  display: inline-block;
   font-size: 19px;
   text-align: center;
   color: #4144bf;
   background-color: white;
-  width: 142px;
-  height: 57px;
   border: 3px solid #4144BF;
   border-radius: 30px;
+  padding: 15px 20px;
   transition: 0.35s;
 }
 
@@ -195,7 +199,6 @@
   color: white;
   background-color: #5555c0;
 }
-
 
 .offer-sec-description-cards-container {
   display: flex;
@@ -256,16 +259,19 @@
 }
 
 .shop-sec-button {
-  width: 245px;
-  height: 53px;
+  display: inline-block;
   font-size: 17px;
   text-align: center;
   color: #fff;
   background-color: #4144BF;
-  border: none;
   border-radius: 40px;
+  padding: 16px 45px;
   margin-top: 20px;
   letter-spacing: -0.04em;
+}
+
+.shop-sec-button:active {
+  background-color: #340ca3;
 }
 
 /* intro-section */
@@ -337,13 +343,18 @@
 }
 
 .plastic-free-sec-button {
+  display: inline-block;
   font-size: 23px;
   text-align: center;
   color: #fff;
   background-color: #4144BF;
   border: none;
   border-radius: 6px;
-  padding: 19px 25px 19px 25px;
+  padding: 19px 25px;
+}
+
+.plastic-free-sec-button:active {
+  background-color: #340ca3;
 }
 
 /* process-section */
@@ -401,7 +412,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 42px;
-  grid-row-gap: 53px;
+  grid-row-gap: 56px;
   padding-bottom: 64px;
   flex-wrap: wrap;
 }
@@ -522,7 +533,11 @@
   background-color: #4144BF;
   border: none;
   border-radius: 6px;
-  padding: 19px 55px 19px 55px;
+  padding: 19px 55px;
+}
+
+.subscription-sec-button:active {
+  background-color: #340ca3;
 }
 
 .subscription-sec-price {

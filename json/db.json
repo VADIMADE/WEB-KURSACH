@@ -1,0 +1,140 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "image": "../img/product1-img.png",
+      "title1": "Fresh Mint",
+      "title2": "Toothpaste",
+      "price1": 30,
+      "price2": 48,
+      "rating": 4.9,
+      "reviews": 10368,
+      "stars": 5,
+      "category": "Toothpaste"
+    },
+    {
+      "id": "2",
+      "image": "../img/product2-img.png",
+      "title1": "Mouthwash Bits",
+      "title2": "4-Month supply",
+      "price1": 20,
+      "price2": 24,
+      "rating": 5,
+      "reviews": 366,
+      "stars": 5,
+      "category": "Mouthwash"
+    },
+    {
+      "id": "3",
+      "image": "../img/product3-img.png",
+      "title1": "Whitening Gel",
+      "title2": "One vial • 28 applications",
+      "price2": 24,
+      "rating": 5,
+      "reviews": 18,
+      "stars": 5,
+      "category": "Whitening"
+    },
+    {
+      "id": "4",
+      "image": "../img/product4-img.png",
+      "title1": "Dental Floss",
+      "title2": "Two-pack",
+      "price2": 12,
+      "rating": 4.9,
+      "reviews": 257,
+      "stars": 5,
+      "category": "Floss"
+    },
+    {
+      "id": "5",
+      "image": "../img/product5-img.png",
+      "title1": "Bamboo Toothbrush",
+      "title2": "Two-pack",
+      "price2": 12,
+      "rating": 4.9,
+      "reviews": 962,
+      "stars": 5,
+      "category": "Toothbrush"
+    },
+    {
+      "id": "6",
+      "image": "../img/product6-img.png",
+      "title1": "Daily Habits Kit",
+      "title2": "5-Piece Oral Care Set",
+      "price1": 60,
+      "price2": 84,
+      "rating": 4.9,
+      "reviews": 16144,
+      "stars": 5,
+      "category": "Kit"
+    },
+    {
+      "id": "7",
+      "image": "../img/product6-img.png",
+      "title1": "Daily Habits Kit",
+      "title2": "5-Piece Oral Care Set",
+      "price1": 70,
+      "price2": 94,
+      "rating": 4.9,
+      "reviews": 16144,
+      "stars": 5,
+      "category": "Kit"
+    }
+  ],
+  "favorites": [
+    {
+      "id": "b700",
+      "productId": 2,
+      "addedAt": "2025-07-30T09:41:23.427Z"
+    },
+    {
+      "id": "a7f0",
+      "productId": 3,
+      "addedAt": "2025-07-30T09:52:14.552Z"
+    },
+    {
+      "id": "3576",
+      "productId": 4,
+      "addedAt": "2025-07-30T09:54:01.684Z"
+    },
+    {
+      "id": "a43d",
+      "productId": 5,
+      "addedAt": "2025-07-30T12:36:48.117Z"
+    }
+  ],
+  "cart": [],
+  "users": [
+    {
+      "id": "1",
+      "firstName": "Иван",
+      "lastName": "Иванов",
+      "middleName": null,
+      "email": "test@example.com",
+      "phone": "+375291234567",
+      "birthDate": "1990-01-01",
+      "username": "ivanov123",
+      "password": "SecurePass123!",
+      "agreedToTerms": true,
+      "createdAt": "2023-05-15T10:00:00Z",
+      "role": "customer"
+    },
+    {
+      "id": "3a24",
+      "firstName": "Лаврук",
+      "lastName": "Вадим",
+      "middleName": "Максимович",
+      "email": "vadimlavruk4@gmail.com",
+      "phone": "+375336518780",
+      "birthDate": "2005-11-05",
+      "username": "лав-nam942",
+      "password": "Vadim$05112005",
+      "agreedToTerms": true,
+      "createdAt": "2025-08-04T16:08:52.736Z",
+      "role": "admin"
+    }
+  ],
+  "feedback": [],
+  "orders": []
+}

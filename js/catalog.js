@@ -1,166 +1,100 @@
-const products = [
-  {
-    id: 1,
-    image: "../img/product1-img.png",
-    title1: "Fresh Mint",
-    title2: "Toothpaste",
-    price1: "$30",
-    price2: "$48",
-    rating: "4.9",
-    reviews: "10368",
-    stars: "★★★★★",
-    category: "Toothpaste"
-  },
-  {
-    id: 2,
-    image: "../img/product2-img.png",
-    title1: "Mouthwash Bits",
-    title2: "4-Month supply",
-    price1: "$20",
-    price2: "$24",
-    rating: "5.0",
-    reviews: "366",
-    stars: "★★★★★",
-    category: "Mouthwash"
-  },
-  {
-    id: 3,
-    image: "../img/product3-img.png",
-    title1: "Whitening Gel",
-    title2: "One vial • 28 applications",
-    price2: "$24",
-    rating: "5.0",
-    reviews: "18",
-    stars: "★★★★★",
-    category: "Whitening"
-  },
-  {
-    id: 4,
-    image: "../img/product4-img.png",
-    title1: "Dental Floss",
-    title2: "Two-pack",
-    price2: "$12",
-    rating: "4.9",
-    reviews: "257",
-    stars: "★★★★★",
-    category: "Floss"
-  },
-  {
-    id: 5,
-    image: "../img/product5-img.png",
-    title1: "Bamboo Toothbrush",
-    title2: "Two-pack",
-    price2: "$12",
-    rating: "4.9",
-    reviews: "962",
-    stars: "★★★★★",
-    category: "Toothbrush"
-  },
-  {
-    id: 6,
-    image: "../img/product6-img.png",
-    title1: "Daily Habits Kit",
-    title2: "5-Piece Oral Care Set",
-    price1: "$60",
-    price2: "$84",
-    rating: "4.9",
-    reviews: "16144",
-    stars: "★★★★★",
-    category: "Kit"
-  },
-  {
-    id: 7,
-    image: "../img/product6-img.png",
-    title1: "Fresh Mint",
-    title2: "Toothpaste",
-    price1: "$30",
-    price2: "$48",
-    rating: "4.9",
-    reviews: "10368",
-    stars: "★★★★★",
-    category: "Toothpaste"
-  },
-  {
-    id: 8,
-    image: "../img/product5-img.png",
-    title1: "Mouthwash Bits",
-    title2: "4-Month supply",
-    price1: "$20",
-    price2: "$24",
-    rating: "5.0",
-    reviews: "366",
-    stars: "★★★★★",
-    category: "Mouthwash"
-  },
-  {
-    id: 9,
-    image: "../img/product4-img.png",
-    title1: "Whitening Gel",
-    title2: "One vial • 28 applications",
-    price2: "$24",
-    rating: "5.0",
-    reviews: "18",
-    stars: "★★★★★",
-    category: "Whitening"
-  },
-  {
-    id: 10,
-    image: "../img/product3-img.png",
-    title1: "Dental Floss",
-    title2: "Two-pack",
-    price2: "$12",
-    rating: "4.9",
-    reviews: "257",
-    stars: "★★★★★",
-    category: "Floss"
-  },
-  {
-    id: 11,
-    image: "../img/product2-img.png",
-    title1: "Bamboo Toothbrush",
-    title2: "Two-pack",
-    price2: "$12",
-    rating: "4.9",
-    reviews: "962",
-    stars: "★★★★★",
-    category: "Toothbrush"
-  }
-];
+const API_URL = 'http://localhost:3000';
+let currentPage = 1;
+const productsPerPage = 6;
+let currentProductList = [];
+let totalProducts = 0;
 
 // Функция для генерации HTML цены
 function renderPrice(product) {
-  if (product.price1 && product.price2) {
-    return `
-      <p class="products-price1">${product.price1}</p>
-      <p class="products-price2">${product.price2}</p>
-    `;
-  } else {
-    return `<p class="products-price2">${product.price2}</p>`;
+  const price1 = product.price1 ? `<p class="products-price1">$${product.price1}</p>` : '';
+  const price2 = `<p class="products-price2">$${product.price2}</p>`;
+  return price1 + price2;
+}
+
+// Функция для генерации звездного рейтинга
+function renderStars(rating) {
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 >= 0.5;
+  let stars = '★'.repeat(fullStars);
+  if (hasHalfStar) stars += '½';
+  stars += '☆'.repeat(5 - fullStars - (hasHalfStar ? 1 : 0));
+  return stars;
+}
+
+// Функция для загрузки продуктов с сервера
+async function fetchProducts(params = {}) {
+  try {
+    // Сначала получаем ВСЕ товары (для поиска и сортировки)
+    let response = await fetch(`${API_URL}/products`);
+    let allProducts = await response.json();
+    
+    // Фильтрация по категориям
+    if (params.categories && params.categories.length > 0) {
+      allProducts = allProducts.filter(product => 
+        params.categories.includes(product.category)
+      );
+    }
+    
+    // Поиск на клиенте
+    if (params.search) {
+      const searchTerm = params.search.toLowerCase();
+      allProducts = allProducts.filter(product => 
+        product.title1.toLowerCase().includes(searchTerm) || 
+        product.title2.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    // Сортировка на клиенте (более надежная)
+    if (params.sortField) {
+      allProducts.sort((a, b) => {
+        let valA, valB;
+        
+        // Для цен берем price2 как основной
+        if (params.sortField === 'price') {
+          valA = parseFloat(a.price1 || a.price2 || 0);
+          valB = parseFloat(b.price1 || b.price2 || 0);
+        } 
+        // Для рейтинга
+        else if (params.sortField === 'rating') {
+          valA = parseFloat(a.rating);
+          valB = parseFloat(b.rating);
+        }
+        // Для названия
+        else {
+          valA = a[params.sortField]?.toLowerCase() || '';
+          valB = b[params.sortField]?.toLowerCase() || '';
+        }
+        
+        return params.sortOrder === 'asc' 
+          ? valA > valB ? 1 : -1
+          : valA < valB ? 1 : -1;
+      });
+    }
+    
+    // Обновляем общее количество
+    totalProducts = allProducts.length;
+    
+    // Применяем пагинацию
+    const startIndex = (currentPage - 1) * productsPerPage;
+    return allProducts.slice(startIndex, startIndex + productsPerPage);
+    
+  } catch (error) {
+    console.error('Error:', error);
+    return [];
   }
 }
 
-let currentPage = 1;
-const productsPerPage = 6;
-let currentProductList = [...products]; // текущий список, с которым работает пагинация
-
-// Функция для генерации карточек
-function renderProducts(productsToRender) {
+// Функция для генерации карточек товаров
+function renderProducts(products) {
   const container = document.querySelector('.products-container');
   const noProductsMessage = document.getElementById('no-products-message');
   const paginationNumbers = document.getElementById('pagination-numbers');
-
-  currentProductList = productsToRender;
-
-  const totalPages = Math.ceil(productsToRender.length / productsPerPage);
-  const startIndex = (currentPage - 1) * productsPerPage;
-  const endIndex = startIndex + productsPerPage;
-  const paginatedProducts = productsToRender.slice(startIndex, endIndex);
 
   container.innerHTML = '';
   paginationNumbers.innerHTML = '';
 
   // Сообщение если пусто
-  if (productsToRender.length === 0) {
+  if (products.length === 0) {
     noProductsMessage.style.display = 'flex';
     document.querySelector('.pagination-container').style.display = 'none';
     return;
@@ -169,9 +103,8 @@ function renderProducts(productsToRender) {
     document.querySelector('.pagination-container').style.display = 'flex';
   }
 
-
   // Отображаем товары
-  paginatedProducts.forEach(product => {
+  products.forEach(product => {
     const card = document.createElement('div');
     card.className = 'products-card';
     card.innerHTML = `
@@ -187,15 +120,35 @@ function renderProducts(productsToRender) {
       </div>
       <p class="products-estimation">Rated ${product.rating} out of 5</p>
       <p class="products-estimation">${product.reviews} Reviews</p>
-      <p class="products-estimation-stars">${product.stars}</p>
+      <p class="products-estimation-stars">${renderStars(product.stars)}</p>
       <div class="products-card-link-container">
-        <a class="products-link" href="#!">ADD TO CART</a>
+        <button class="add-to-cart" data-id="${product.id}">ADD TO CART</button>
+        <button class="add-to-favorites" data-id="${product.id}">♥</button>
       </div>
     `;
     container.appendChild(card);
   });
 
-  // Пагинация: кнопки
+  // Обновляем пагинацию
+  updatePagination();
+  
+  // Добавляем обработчики событий для кнопок
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', addToCart);
+  });
+  
+  document.querySelectorAll('.add-to-favorites').forEach(button => {
+    button.addEventListener('click', addToFavorites);
+  });
+}
+
+// Функция для обновления пагинации
+function updatePagination() {
+  const paginationNumbers = document.getElementById('pagination-numbers');
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+  
+  paginationNumbers.innerHTML = '';
+  
   for (let i = 1; i <= totalPages; i++) {
     const pageBtn = document.createElement('button');
     pageBtn.classList.add('pagination-number');
@@ -203,7 +156,7 @@ function renderProducts(productsToRender) {
     pageBtn.textContent = i;
     pageBtn.addEventListener('click', () => {
       currentPage = i;
-      renderProducts(currentProductList);
+      filterAndSortProducts();
     });
     paginationNumbers.appendChild(pageBtn);
   }
@@ -213,163 +166,168 @@ function renderProducts(productsToRender) {
   document.getElementById('next-page').disabled = currentPage === totalPages || totalPages === 0;
 }
 
-// Функция для преобразования цены в число
-function parsePrice(priceStr) {
-  return parseFloat(priceStr.replace('$', ''));
-}
-
 // Функция для фильтрации и сортировки продуктов
-function filterAndSortProducts() {
-  const searchInput = document.getElementById('search-input').value.toLowerCase();
+async function filterAndSortProducts() {
+  const searchInput = document.getElementById('search-input').value;
   const sortValue = document.getElementById('sort-select').value;
-
-  // Получаем выбранные чекбоксы
   const checkedCategories = Array.from(
     document.querySelectorAll('input[name="category"]:checked')
   ).map(checkbox => checkbox.value);
-  
-  let filteredProducts = [...products];
-  
-  // Поиск
-  if (searchInput) {
-    filteredProducts = filteredProducts.filter(product => 
-      product.title1.toLowerCase().includes(searchInput) || 
-      product.title2.toLowerCase().includes(searchInput));
-  }  
-  
-  // Фильтруем по категориям ТОЛЬКО если есть выбранные чекбоксы
-  if (checkedCategories.length > 0) {
-    filteredProducts = filteredProducts.filter(product => 
-      checkedCategories.includes(product.category)
-    );
-  }
 
-  // Сортировка
+  // Параметры сортировки
+  let sortField, sortOrder;
   switch (sortValue) {
     case 'price-asc':
-      filteredProducts.sort((a, b) => {
-        const priceA = a.price1 ? parsePrice(a.price1) : parsePrice(a.price2);
-        const priceB = b.price1 ? parsePrice(b.price1) : parsePrice(b.price2);
-        return priceA - priceB;
-      });
+      sortField = 'price';
+      sortOrder = 'asc';
       break;
     case 'price-desc':
-      filteredProducts.sort((a, b) => {
-        const priceA = a.price1 ? parsePrice(a.price1) : parsePrice(a.price2);
-        const priceB = b.price1 ? parsePrice(b.price1) : parsePrice(b.price2);
-        return priceB - priceA;
-      });
+      sortField = 'price';
+      sortOrder = 'desc';
       break;
     case 'name-asc':
-      filteredProducts.sort((a, b) => a.title1.localeCompare(b.title1));
+      sortField = 'title1';
+      sortOrder = 'asc';
       break;
     case 'name-desc':
-      filteredProducts.sort((a, b) => b.title1.localeCompare(a.title1));
+      sortField = 'title1';
+      sortOrder = 'desc';
       break;
     case 'rating-asc':
-      filteredProducts.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating));
+      sortField = 'rating';
+      sortOrder = 'asc';
       break;
     case 'rating-desc':
-      filteredProducts.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+      sortField = 'rating';
+      sortOrder = 'desc';
       break;
+    default:
+      sortField = undefined;
   }
 
-  currentPage = 1;
+  const products = await fetchProducts({
+    search: searchInput,
+    categories: checkedCategories,
+    sortField,
+    sortOrder
+  });
   
-  renderProducts(filteredProducts);
+  renderProducts(products);
 }
 
-// Добавляем обработчики событий для чекбоксов
-document.querySelectorAll('input[name="category"]').forEach(checkbox => {
-  checkbox.addEventListener('change', filterAndSortProducts);
-});
-
-// Обработчики событий для фильтров
-document.getElementById('search-input').addEventListener('input', filterAndSortProducts);
-document.getElementById('sort-select').addEventListener('change', filterAndSortProducts);
-
-// Обработчики для кнопок методов массивов
-document.querySelectorAll('.array-methods-buttons button').forEach(button => {
-  button.addEventListener('click', function() {
-    const method = this.getAttribute('data-method');
-    let processedProducts = [];
+// Функция для добавления в корзину
+async function addToCart(event) {
+  const productId = parseInt(event.target.getAttribute('data-id'));
+  
+  try {
+    // Проверяем, есть ли уже этот товар в корзине
+    const response = await fetch(`${API_URL}/cart?productId=${productId}`);
+    const existingItems = await response.json();
     
-    switch (method) {
-      case 'original':
-        processedProducts = [...products];
-        break;
-      case 'map':
-        processedProducts = products.map(product => {
-          const price1 = product.price1 ? `$${parsePrice(product.price1) + 5}` : null;
-          const price2 = `$${parsePrice(product.price2) + 5}`;
-          return {...product, price1, price2};
-        });
-        break;
-      case 'filter':
-        processedProducts = products.filter(product => {
-          const price = product.price1 ? parsePrice(product.price1) : parsePrice(product.price2);
-          return price > 20;
-        });
-        break;
-      case 'sort-price-asc':
-        processedProducts = [...products].sort((a, b) => {
-          const priceA = a.price1 ? parsePrice(a.price1) : parsePrice(a.price2);
-          const priceB = b.price1 ? parsePrice(b.price1) : parsePrice(b.price2);
-          return priceA - priceB;
-        });
-        break;
-      case 'sort-price-desc':
-        processedProducts = [...products].sort((a, b) => {
-          const priceA = a.price1 ? parsePrice(a.price1) : parsePrice(a.price2);
-          const priceB = b.price1 ? parsePrice(b.price1) : parsePrice(b.price2);
-          return priceB - priceA;
-        });
-        break;
-      case 'sort-rating-desc':
-        processedProducts = [...products].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-        break;
-      case 'reduce':
-        const totalValue = products.reduce((sum, product) => {
-          const price = product.price1 ? parsePrice(product.price1) : parsePrice(product.price2);
-          return sum + price;
-        }, 0);
-        alert(`Total value of all products: $${totalValue}`);
-        return;
-      case 'some':
-        const hasFiveStar = products.some(product => product.rating === "5.0");
-        alert(`Has 5-star products: ${hasFiveStar ? 'Yes' : 'No'}`);
-        return;
-      case 'every':
-        const allHighRating = products.every(product => parseFloat(product.rating) >= 4.9);
-        alert(`All products have 4.9+ rating: ${allHighRating ? 'Yes' : 'No'}`);
-        return;
-      case 'find':
-        const whiteningProduct = products.find(product => product.title1.includes("Whitening"));
-        processedProducts = whiteningProduct ? [whiteningProduct] : [];
-        break;
+    if (existingItems.length > 0) {
+      // Увеличиваем количество
+      await fetch(`${API_URL}/cart/${existingItems[0].id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          quantity: existingItems[0].quantity + 1
+        })
+      });
+    } else {
+      // Добавляем новый товар
+      await fetch(`${API_URL}/cart`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          productId,
+          quantity: 1,
+          addedAt: new Date().toISOString()
+        })
+      });
     }
+    
+    alert('Product added to cart!');
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+    alert('Failed to add product to cart');
+  }
+}
 
-    // currentPage = 1;
-    renderProducts(processedProducts);
-  });
-});
+// Функция для добавления в избранное
+async function addToFavorites(event) {
+  const productId = parseInt(event.target.getAttribute('data-id'));
+  
+  try {
+    // Проверяем, есть ли уже этот товар в избранном
+    const response = await fetch(`${API_URL}/favorites?productId=${productId}`);
+    const existingItems = await response.json();
+    
+    if (existingItems.length === 0) {
+      // Добавляем новый товар
+      await fetch(`${API_URL}/favorites`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          productId,
+          addedAt: new Date().toISOString()
+        })
+      });
+      
+      alert('Product added to favorites!');
+    } else {
+      alert('Product is already in favorites!');
+    }
+  } catch (error) {
+    console.error('Error adding to favorites:', error);
+    alert('Failed to add product to favorites');
+  }
+}
 
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Загружаем продукты
+  const products = await fetchProducts();
+  currentProductList = products;
   renderProducts(products);
-});
+  
+  // Обработчики событий для фильтров
+  document.getElementById('search-input').addEventListener('input', () => {
+    currentPage = 1;
+    filterAndSortProducts();
+  });
+  
+  document.getElementById('sort-select').addEventListener('change', () => {
+    currentPage = 1;
+    filterAndSortProducts();
+  });
 
-document.getElementById('prev-page').addEventListener('click', () => {
-  if (currentPage > 1) {
-    currentPage--;
-    renderProducts(currentProductList);
-  }
-});
+  // Обработчики для чекбоксов категорий
+  document.querySelectorAll('input[name="category"]').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      currentPage = 1;
+      filterAndSortProducts();
+    });
+  });
 
-document.getElementById('next-page').addEventListener('click', () => {
-  const totalPages = Math.ceil(currentProductList.length / productsPerPage);
-  if (currentPage < totalPages) {
-    currentPage++;
-    renderProducts(currentProductList);
-  }
+  // Обработчики для кнопок пагинации
+  document.getElementById('prev-page').addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      filterAndSortProducts();
+    }
+  });
+
+  document.getElementById('next-page').addEventListener('click', () => {
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      filterAndSortProducts();
+    }
+  });
 });

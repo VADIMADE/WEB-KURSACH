@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/signup.css">
-  <title>SIGNUP</title>
+  <link rel="stylesheet" href="../css/cart.css">
+  <title>CART</title>
 </head>
 
 <body>
@@ -56,72 +56,31 @@
 
   <main class="main">
     <div class="container">
-      <form id="registerForm">
-        <h1>Register</h1>
+      <h1 class="cart-title">Your Cart</h1>
+        
+      <div class="cart-container" id="cart-container">
 
-        <div class="input-box-container">
-          <div class="input-box">
-            <input type="text" placeholder="First Name" name="firstName" id="firstName" required>
-            <div class="error-message" id="firstNameError"></div>
-          </div>
-          <div class="input-box">
-            <input type="text" placeholder="Last Name" name="lastName" id="lastName" required>
-            <div class="error-message" id="lastNameError"></div>
-          </div>
-          <div class="input-box">
-            <input type="text" placeholder="Middle Name (optional)" name="middleName" id="middleName">
-            <div class="error-message" id="middleNameError"></div>
-          </div>
-          <div class="input-box">
-            <input type="email" placeholder="Email" name="email" id="email" required>
-            <div class="error-message" id="emailError"></div>
-          </div>
-          <div class="input-box">
-            <input type="tel" placeholder="+375" name="phone" id="phone" pattern="\+375[0-9]{9}" required>
-            <div class="error-message" id="phoneError"></div>
-          </div>
-          <div class="input-box">
-            <input type="date" placeholder="Birthdate" name="birthDate" id="birthDate" required>
-            <div class="error-message" id="birthDateError"></div>
-          </div>
-          <div class="input-box">
-            <div class="password-options">
-              <label>
-                <input type="radio" name="passwordOption" value="auto" checked> Сгенерировать пароль автоматически
-              </label>
-              <label>
-                <input type="radio" name="passwordOption" value="manual"> Задать пароль вручную
-              </label>
-            </div>
-          </div>
-          <div class="input-box manual-password" style="display: none;">
-            <input type="password" placeholder="Пароль" name="password" id="password">
-            <div class="error-message" id="passwordError"></div>
-          </div>
-          <div class="input-box manual-password" style="display: none;">
-            <input type="password" placeholder="Повторите пароль" name="repeatPassword" id="repeatPassword">
-            <div class="error-message" id="repeatPasswordError"></div>
-          </div>
-          <div class="input-box">
-            <div class="username-generator">
-              <input type="text" placeholder="Никнейм" name="username" id="username" readonly>
-              <button type="button" id="generateUsername" class="generate-btn">Сгенерировать</button>
-            </div>
-            <div class="error-message" id="usernameError"></div>
-            <div class="attempts-counter">Попыток осталось: <span id="attemptsLeft">5</span></div>
-          </div>     
-
-          <div class="checkbox-group">
-            <input type="checkbox" id="agree" name="agree" required>
-            <label for="agree" class="required">I agree with the rules of the service</label>
-            <div class="error-message" id="agreeError"></div>
-          </div>
+      </div>
+        
+      <div class="cart-summary">
+        <div class="cart-total">
+          <h3>Total: <span id="total-price">$0.00</span></h3>
         </div>
-
-        <button type="submit" class="btn" id="registerBtn" disabled>Create Account</button>
-      </form>
+        <button class="checkout-button" id="checkout-button">CHECKOUT</button>
+      </div>
+        
+      <div class="empty-cart-message" id="empty-cart-message">
+        Your cart is empty. <a href="catalog.html">Continue shopping</a>
+      </div>
+        
+      <div class="success-message" id="success-message">
+        <h2>Thank you for your purchase!</h2>
+        <p>Your order has been placed successfully.</p>
+        <a href="catalog.html">Back to shop</a>
+      </div>
     </div>
   </main>
+
 
   <footer class="footer">
     <div class="container">
@@ -268,7 +227,7 @@
     </div>
   </footer>
 
-  <script src="../js/auth.js"></script>
+  <script src="../js/cart.js"></script>
 </body>
 
 </html>
