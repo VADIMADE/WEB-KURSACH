@@ -1,11 +1,40 @@
 const API_URL = 'http://localhost:3000';
 
 // Функция для загрузки корзины и продуктов
+// async function fetchCartWithProducts() {
+//   try {
+//     // Получаем корзину и продукты отдельно
+//     const [cartResponse, productsResponse] = await Promise.all([
+//       fetch(`${API_URL}/cart`),
+//       fetch(`${API_URL}/products`)
+//     ]);
+    
+//     const cartItems = await cartResponse.json();
+//     const products = await productsResponse.json();
+    
+//     // Сопоставляем продукты с элементами корзины
+//     return cartItems.map(item => {
+//       const product = products.find(p => p.id == item.productId);
+//       return {
+//         ...item,
+//         product: product || null
+//       };
+//     });
+//   } catch (error) {
+//     console.error('Error fetching cart:', error);
+//     return [];
+//   }
+// }
+
+// Функция для загрузки корзины и продуктов
 async function fetchCartWithProducts() {
   try {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    if (!currentUser) return [];
+
     // Получаем корзину и продукты отдельно
     const [cartResponse, productsResponse] = await Promise.all([
-      fetch(`${API_URL}/cart`),
+      fetch(`${API_URL}/cart?userId=${currentUser.id}`),
       fetch(`${API_URL}/products`)
     ]);
     
@@ -189,6 +218,19 @@ async function checkout() {
 }
 
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', async () => {
-  await renderCart();
+// document.addEventListener('DOMContentLoaded', async () => {
+//   await renderCart();
+// });
+
+// Проверка авторизации при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  if (!currentUser) {
+    alert('Please log in to view your cart');
+    window.location.href = 'signin.html';
+    return;
+  }
+  
+  // Инициализация корзины
+  renderCart();
 });

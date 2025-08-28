@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/signin.css">
-  <title>SIGNIN</title>
+  <link rel="stylesheet" href="../css/about.css">
+  <title>ABOUT</title>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
       <nav class="header-nav">
         <ul class="header-list" id="menu">
           <li class="header-item">
-            <a class="header-link" href="index.html">HOME</a>
+            <a class="header-link" href="catalog.html">SHOP</a>
           </li>
           <li class="header-item">
             <a class="header-link" href="#!">ABOUT US</a>
@@ -56,43 +56,12 @@
 
   <main class="main">
     <div class="container">
-      <div id="loginContainer">
-        <form id="loginForm">
-          <h1>Login</h1>
-  
-          <div class="input-box">
-            <input type="text" placeholder="Email or Username" name="login" id="login">
-            <div class="error-message" id="loginError"></div>
-          </div>
-  
-          <div class="input-box">
-            <input type="password" placeholder="Password" name="password" id="password">
-            <div class="error-message" id="passwordError"></div>
-          </div>
-  
-          <button type="submit" class="btn">Login</button>
-  
-          <p class="main-text">Don't have an account? 
-            <a class="main-text-link" href="signup.html">Register</a>
-          </p>
-        </form>
-      </div>
-
-      <div id="userPanel" style="display: none;">
-        <div class="user-info">
-          <h2>Welcome, <span id="userName"></span>!</h2>
-          <p>Email: <span id="userEmail"></span></p>
-          <p>Role: <span id="userRole"></span></p>
-        </div>
-        
-        <div class="user-actions">
-          <button id="logoutBtn" class="btn">Logout</button>
-          <button id="viewProfileBtn" class="btn">View Profile</button>
-          <button id="changePasswordBtn" class="btn">Change Password</button>
-          <a href="index.html" class="btn">Go to Shop</a>
-          <a id="adminPanelLink" href="admin.html" class="btn" style="display: none;">Admin Panel</a>
-        </div>
-      </div>
+      <p class="main-title">Our location on the map</p>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2231.2738575128765!2d30.34165159398444!3d53.90798426401934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d051e21c08086b%3A0x342bdbdd2dc821f8!2z0JHQtdC70L7RgNGD0YHRgdC60L4t0KDQvtGB0YHQuNC50YHQutC40Lkg0YPQvdC40LLQtdGA0YHQuNGC0LXRgg!5e0!3m2!1sru!2sby!4v1756356183003!5m2!1sru!2sby"
+        width="800" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
   </main>
 
@@ -241,7 +210,6 @@
     </div>
   </footer>
 
-  <script src="../js/auth.js"></script>
 </body>
 
 </html>

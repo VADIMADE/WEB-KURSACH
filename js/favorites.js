@@ -18,10 +18,49 @@ function renderStars(rating) {
 }
 
 // Функция для загрузки избранных товаров
+// async function loadFavorites() {
+//   try {
+//     // Получаем все записи из избранного
+//     const favoritesResponse = await fetch(`${API_URL}/favorites?_sort=addedAt&_order=desc`);
+//     const favorites = await favoritesResponse.json();
+    
+//     if (favorites.length === 0) {
+//       showEmptyMessage();
+//       return;
+//     }
+    
+//     // Получаем ID всех товаров в избранном (как строки, так как в products id - строки)
+//     const productIds = favorites.map(fav => fav.productId.toString());
+    
+//     // Загружаем полную информацию о товарах
+//     const productsResponse = await fetch(`${API_URL}/products`);
+//     const allProducts = await productsResponse.json();
+    
+//     // Фильтруем только те товары, которые есть в избранном
+//     const favoriteProducts = allProducts.filter(product => 
+//       productIds.includes(product.id)
+//     );
+    
+//     // Отображаем товары
+//     renderFavorites(favoriteProducts, favorites);
+    
+//   } catch (error) {
+//     console.error('Error loading favorites:', error);
+//     showEmptyMessage('Failed to load favorites. Please try again later.');
+//   }
+// }
+
+// Функция для загрузки избранных товаров
 async function loadFavorites() {
   try {
-    // Получаем все записи из избранного
-    const favoritesResponse = await fetch(`${API_URL}/favorites?_sort=addedAt&_order=desc`);
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    if (!currentUser) {
+      showEmptyMessage('Please log in to view your favorites');
+      return;
+    }
+
+    // Получаем все записи из избранного для текущего пользователя
+    const favoritesResponse = await fetch(`${API_URL}/favorites?userId=${currentUser.id}&_sort=addedAt&_order=desc`);
     const favorites = await favoritesResponse.json();
     
     if (favorites.length === 0) {
@@ -29,7 +68,7 @@ async function loadFavorites() {
       return;
     }
     
-    // Получаем ID всех товаров в избранном (как строки, так как в products id - строки)
+    // Получаем ID всех товаров в избранном
     const productIds = favorites.map(fav => fav.productId.toString());
     
     // Загружаем полную информацию о товарах
@@ -93,6 +132,27 @@ function renderFavorites(products, favorites) {
 }
 
 // Функция для удаления товара из избранного
+// async function removeFromFavorites(event) {
+//   const favoriteId = event.target.getAttribute('data-fav-id');
+  
+//   try {
+//     const response = await fetch(`${API_URL}/favorites/${favoriteId}`, {
+//       method: 'DELETE'
+//     });
+    
+//     if (response.ok) {
+//       // Перезагружаем список избранных
+//       loadFavorites();
+//     } else {
+//       alert('Failed to remove from favorites');
+//     }
+//   } catch (error) {
+//     console.error('Error removing from favorites:', error);
+//     alert('Failed to remove from favorites');
+//   }
+// }
+
+// Функция для удаления товара из избранного
 async function removeFromFavorites(event) {
   const favoriteId = event.target.getAttribute('data-fav-id');
   
@@ -114,12 +174,62 @@ async function removeFromFavorites(event) {
 }
 
 // Функция для добавления в корзину
+// async function addToCart(event) {
+//   const productId = event.target.getAttribute('data-id');
+  
+//   try {
+//     // Проверяем, есть ли уже этот товар в корзине
+//     const response = await fetch(`${API_URL}/cart?productId=${productId}`);
+//     const existingItems = await response.json();
+    
+//     if (existingItems.length > 0) {
+//       // Увеличиваем количество
+//       await fetch(`${API_URL}/cart/${existingItems[0].id}`, {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           quantity: existingItems[0].quantity + 1
+//         })
+//       });
+//     } else {
+//       // Добавляем новый товар
+//       await fetch(`${API_URL}/cart`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           productId,
+//           quantity: 1,
+//           addedAt: new Date().toISOString()
+//         })
+//       });
+//     }
+    
+//     alert('Product added to cart!');
+//   } catch (error) {
+//     console.error('Error adding to cart:', error);
+//     alert('Failed to add product to cart');
+//   }
+// }
+
+// Функция для добавления в корзину
 async function addToCart(event) {
+  // Проверяем авторизацию
+  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  if (!currentUser) {
+    alert('Please log in to add items to cart');
+    window.location.href = 'signin.html';
+    return;
+  }
+
   const productId = event.target.getAttribute('data-id');
   
   try {
-    // Проверяем, есть ли уже этот товар в корзине
-    const response = await fetch(`${API_URL}/cart?productId=${productId}`);
+    // Проверяем, есть ли уже этот товар в корзине у этого пользователя
+    const response = await fetch(`${API_URL}/cart?productId=${productId}&userId=${currentUser.id}`);
     const existingItems = await response.json();
     
     if (existingItems.length > 0) {
@@ -142,6 +252,7 @@ async function addToCart(event) {
         },
         body: JSON.stringify({
           productId,
+          userId: currentUser.id,
           quantity: 1,
           addedAt: new Date().toISOString()
         })
@@ -167,6 +278,19 @@ function showEmptyMessage(message = 'You have no favorite products yet.') {
 }
 
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
+//   loadFavorites();
+// });
+
+// Проверка авторизации при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  if (!currentUser) {
+    alert('Please log in to view your favorites');
+    window.location.href = 'signin.html';
+    return;
+  }
+  
+  // Инициализация избранного
   loadFavorites();
 });

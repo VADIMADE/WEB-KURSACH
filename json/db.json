@@ -84,27 +84,21 @@
   ],
   "favorites": [
     {
-      "id": "b700",
-      "productId": 2,
-      "addedAt": "2025-07-30T09:41:23.427Z"
-    },
-    {
-      "id": "a7f0",
-      "productId": 3,
-      "addedAt": "2025-07-30T09:52:14.552Z"
-    },
-    {
-      "id": "3576",
-      "productId": 4,
-      "addedAt": "2025-07-30T09:54:01.684Z"
-    },
-    {
       "id": "a43d",
       "productId": 5,
+      "userId": 1,
       "addedAt": "2025-07-30T12:36:48.117Z"
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": "ef58",
+      "productId": 1,
+      "userId": "1",
+      "quantity": 1,
+      "addedAt": "2025-08-27T13:58:19.052Z"
+    }
+  ],
   "users": [
     {
       "id": "1",

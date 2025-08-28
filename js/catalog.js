@@ -216,12 +216,61 @@ async function filterAndSortProducts() {
 }
 
 // Функция для добавления в корзину
+// async function addToCart(event) {
+//   const productId = parseInt(event.target.getAttribute('data-id'));
+  
+//   try {
+//     // Проверяем, есть ли уже этот товар в корзине
+//     const response = await fetch(`${API_URL}/cart?productId=${productId}`);
+//     const existingItems = await response.json();
+    
+//     if (existingItems.length > 0) {
+//       // Увеличиваем количество
+//       await fetch(`${API_URL}/cart/${existingItems[0].id}`, {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           quantity: existingItems[0].quantity + 1
+//         })
+//       });
+//     } else {
+//       // Добавляем новый товар
+//       await fetch(`${API_URL}/cart`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           productId,
+//           quantity: 1,
+//           addedAt: new Date().toISOString()
+//         })
+//       });
+//     }
+    
+//     alert('Product added to cart!');
+//   } catch (error) {
+//     console.error('Error adding to cart:', error);
+//     alert('Failed to add product to cart');
+//   }
+// }
+
 async function addToCart(event) {
+  // Проверяем авторизацию
+  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  if (!currentUser) {
+    alert('Please log in to add items to cart');
+    window.location.href = 'signin.html';
+    return;
+  }
+
   const productId = parseInt(event.target.getAttribute('data-id'));
   
   try {
-    // Проверяем, есть ли уже этот товар в корзине
-    const response = await fetch(`${API_URL}/cart?productId=${productId}`);
+    // Проверяем, есть ли уже этот товар в корзине у этого пользователя
+    const response = await fetch(`${API_URL}/cart?productId=${productId}&userId=${currentUser.id}`);
     const existingItems = await response.json();
     
     if (existingItems.length > 0) {
@@ -244,6 +293,7 @@ async function addToCart(event) {
         },
         body: JSON.stringify({
           productId,
+          userId: currentUser.id,
           quantity: 1,
           addedAt: new Date().toISOString()
         })
@@ -258,12 +308,51 @@ async function addToCart(event) {
 }
 
 // Функция для добавления в избранное
+// async function addToFavorites(event) {
+//   const productId = parseInt(event.target.getAttribute('data-id'));
+  
+//   try {
+//     // Проверяем, есть ли уже этот товар в избранном
+//     const response = await fetch(`${API_URL}/favorites?productId=${productId}`);
+//     const existingItems = await response.json();
+    
+//     if (existingItems.length === 0) {
+//       // Добавляем новый товар
+//       await fetch(`${API_URL}/favorites`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           productId,
+//           addedAt: new Date().toISOString()
+//         })
+//       });
+      
+//       alert('Product added to favorites!');
+//     } else {
+//       alert('Product is already in favorites!');
+//     }
+//   } catch (error) {
+//     console.error('Error adding to favorites:', error);
+//     alert('Failed to add product to favorites');
+//   }
+// }
+
 async function addToFavorites(event) {
+  // Проверяем авторизацию
+  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  if (!currentUser) {
+    alert('Please log in to add items to favorites');
+    window.location.href = 'signin.html';
+    return;
+  }
+
   const productId = parseInt(event.target.getAttribute('data-id'));
   
   try {
-    // Проверяем, есть ли уже этот товар в избранном
-    const response = await fetch(`${API_URL}/favorites?productId=${productId}`);
+    // Проверяем, есть ли уже этот товар в избранном у этого пользователя
+    const response = await fetch(`${API_URL}/favorites?productId=${productId}&userId=${currentUser.id}`);
     const existingItems = await response.json();
     
     if (existingItems.length === 0) {
@@ -275,6 +364,7 @@ async function addToFavorites(event) {
         },
         body: JSON.stringify({
           productId,
+          userId: currentUser.id,
           addedAt: new Date().toISOString()
         })
       });

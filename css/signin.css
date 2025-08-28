@@ -355,10 +355,50 @@ input:focus {
   display: none;
 }
 
+.input-box.error .error-message {
+  display: block;
+}
+
 .input-box.error input {
   border-color: #e74c3c;
 }
 
+/* Стили для панели пользователя */
+#userPanel {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.user-info {
+  margin-bottom: 20px;
+}
+
+.user-info h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.user-info p {
+  color: #666;
+  margin: 5px 0;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-actions .btn {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
 
 /* footer */
 

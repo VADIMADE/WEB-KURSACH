@@ -29,7 +29,7 @@
             <a class="header-link" href="catalog.html">SHOP</a>
           </li>
           <li class="header-item">
-            <a class="header-link" href="#!">ABOUT US</a>
+            <a class="header-link" href="about.html">ABOUT US</a>
           </li>
           <li class="header-item">
             <a class="header-link" href="#!">SUSTAINABILITY</a>
@@ -42,7 +42,14 @@
     
       <img class="header-logo" src="../img/header-logo.png" alt="logo-Bite">
 
+
+
       <div class="header-image">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ru">RU</button>
+        </div>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
         <a href="favorites.html">
           <img class="header-image-favorites" src="../img/header-favorites.png" alt="image-favorites">
         </a>
@@ -59,9 +66,9 @@
   <main class="main">
     <section class="main-section">
       <div class="container">
-        <p class="main-sec-title">Toothpaste, reinvented</p>
-        <p class="main-sec-description">The only plastic-free and clean way to replace the paste you've used your whole life.</p>
-        <a class="main-sec-button" href="catalog.html">shop now</a>
+        <p class="main-sec-title" data-i18n="main-title">Toothpaste, reinvented</p>
+        <p class="main-sec-description" data-i18n="main-description">The only plastic-free and clean way to replace the paste you've used your whole life.</p>
+        <a class="main-sec-button" href="catalog.html" data-i18n="shop-now">shop now</a>
       </div>
     </section>
 
@@ -551,8 +558,20 @@
     </div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(sessionStorage.getItem('currentUser'));
+      const adminLink = document.getElementById('adminPanelLink');
+      if (user && user.role === 'admin' && adminLink) {
+        adminLink.style.display = 'block';
+      } else if (adminLink) {
+        adminLink.style.display = 'none';
+      }
+    });
+  </script>
+  
   <script src="../js/burgerMenu.js"></script>
-
+  <script src="../js/translate.js"></script>
 </body>
 
 </html>

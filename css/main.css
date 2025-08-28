@@ -8,6 +8,7 @@
 
 .header {
   padding-top: 20px;
+  padding-bottom: 20px;
   position: relative;
   z-index: 1;
 }
@@ -78,6 +79,67 @@
   height: 100%;
 }
 
+
+
+
+/* Стили для переключателя языка */
+.lang-btn {
+  background: none;
+  border: 1px solid #4144BF;
+  color: #4144BF;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.lang-btn.active {
+  background-color: #4144BF;
+  color: white;
+}
+
+/* Светлая тема (по умолчанию) */
+:root {
+  --bg-color: #fff;
+  --text-color: #000;
+  --primary-color: #4144BF;
+  --header-bg: transparent;
+}
+
+/* Темная тема */
+.dark-theme {
+  --bg-color: #1a1a1a;
+  --text-color: #f0f0f0;
+  --primary-color: #6c71f0;
+  --header-bg: #1a1a1a;
+}
+
+/* Применяем переменные */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header {
+  background-color: var(--header-bg);
+}
+
+.header-link {
+  color: var(--primary-color);
+}
+
+.main-sec-button, .offer-sec-description-text-button, 
+.plastic-free-sec-button, .subscription-sec-button {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.main-sec-button:hover, .offer-sec-description-text-button:hover, 
+.plastic-free-sec-button:hover, .subscription-sec-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
 /* main-section */
 
 .main-section {
@@ -88,7 +150,7 @@
   text-align: center;
   min-height: 690px;
   padding-top: 185px;
-  margin-top: -60px;
+  margin-top: -80px;
 }
 
 .main-sec-title {
