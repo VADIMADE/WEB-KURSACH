@@ -67,6 +67,10 @@
   gap: 30px;
 }
 
+.header-image-theme-toggle {
+  height: 100%;
+}
+
 .header-image-favorites {
   height: 100%;
 }
@@ -78,9 +82,6 @@
 .header-image-account {
   height: 100%;
 }
-
-
-
 
 /* Стили для переключателя языка */
 .lang-btn {

@@ -2,84 +2,113 @@
   "products": [
     {
       "id": "1",
-      "image": "../img/product1-img.png",
       "title1": "Fresh Mint",
-      "title2": "Toothpaste",
-      "price1": 30,
       "price2": 48,
-      "rating": 4.9,
-      "reviews": 10368,
-      "stars": 5,
-      "category": "Toothpaste"
+      "price1": 20,
+      "category": "Toothpaste",
+      "image": "../img/product1-img.png",
+      "rating": 5,
+      "reviews": 366,
+      "stars": 5
     },
     {
       "id": "2",
-      "image": "../img/product2-img.png",
       "title1": "Mouthwash Bits",
-      "title2": "4-Month supply",
+      "price2": 48,
       "price1": 20,
-      "price2": 24,
+      "category": "Mouthwash",
+      "image": "../img/product2-img.png",
       "rating": 5,
       "reviews": 366,
-      "stars": 5,
-      "category": "Mouthwash"
+      "stars": 5
     },
     {
       "id": "3",
-      "image": "../img/product3-img.png",
       "title1": "Whitening Gel",
-      "title2": "One vial • 28 applications",
-      "price2": 24,
+      "price2": 48,
+      "price1": 20,
+      "category": "Whitening",
+      "image": "../img/product3-img.png",
       "rating": 5,
       "reviews": 18,
-      "stars": 5,
-      "category": "Whitening"
+      "stars": 5
     },
     {
       "id": "4",
-      "image": "../img/product4-img.png",
       "title1": "Dental Floss",
-      "title2": "Two-pack",
-      "price2": 12,
+      "price2": 48,
+      "price1": 20,
+      "category": "Floss",
+      "image": "../img/product4-img.png",
       "rating": 4.9,
       "reviews": 257,
-      "stars": 5,
-      "category": "Floss"
+      "stars": 5
     },
     {
       "id": "5",
-      "image": "../img/product5-img.png",
       "title1": "Bamboo Toothbrush",
-      "title2": "Two-pack",
-      "price2": 12,
+      "price2": 48,
+      "price1": 20,
+      "category": "Toothbrush",
+      "image": "../img/product5-img.png",
       "rating": 4.9,
       "reviews": 962,
-      "stars": 5,
-      "category": "Toothbrush"
+      "stars": 5
     },
     {
       "id": "6",
-      "image": "../img/product6-img.png",
       "title1": "Daily Habits Kit",
-      "title2": "5-Piece Oral Care Set",
-      "price1": 60,
-      "price2": 84,
+      "price2": 48,
+      "price1": 20,
+      "category": "Kit",
+      "image": "../img/product6-img.png",
       "rating": 4.9,
       "reviews": 16144,
-      "stars": 5,
-      "category": "Kit"
+      "stars": 5
     },
     {
-      "id": "7",
-      "image": "../img/product6-img.png",
-      "title1": "Daily Habits Kit",
-      "title2": "5-Piece Oral Care Set",
-      "price1": 70,
-      "price2": 94,
+      "id": "8",
+      "title1": "Berry Twist",
+      "price2": 48,
+      "price1": 20,
+      "category": "Toothpaste",
+      "image": "../img/product11-img.png",
+      "rating": 5,
+      "reviews": 100,
+      "stars": 5
+    },
+    {
+      "id": "9",
+      "title1": "Mint Charcoal",
+      "price2": 48,
+      "price1": 20,
+      "category": "Toothpaste",
+      "image": "../img/product12-img.png",
       "rating": 4.9,
-      "reviews": 16144,
+      "reviews": 30,
+      "stars": 5
+    },
+    {
+      "id": "10",
+      "title1": "Fresh Mint Advanced",
+      "price2": 48,
+      "price1": 20,
+      "category": "Toothpaste",
+      "image": "../img/product13-img.png",
+      "rating": 5,
+      "reviews": 10,
+      "stars": 5
+    },
+    {
+      "title1": "Mouthwash Bits",
+      "price2": 20,
+      "price1": null,
+      "category": "Mouthwash",
+      "image": "../img/product14-img.png",
+      "rating": 5,
+      "reviews": 222,
       "stars": 5,
-      "category": "Kit"
+      "id": "7878"
     }
   ],
   "favorites": [
@@ -88,17 +117,15 @@
       "productId": 5,
       "userId": 1,
       "addedAt": "2025-07-30T12:36:48.117Z"
-    }
-  ],
-  "cart": [
+    },
     {
-      "id": "ef58",
+      "id": "28ec",
       "productId": 1,
-      "userId": "1",
-      "quantity": 1,
-      "addedAt": "2025-08-27T13:58:19.052Z"
+      "userId": "b3a3",
+      "addedAt": "2025-08-31T15:39:53.343Z"
     }
   ],
+  "cart": [],
   "users": [
     {
       "id": "1",
@@ -116,8 +143,8 @@
     },
     {
       "id": "3a24",
-      "firstName": "Лаврук",
-      "lastName": "Вадим",
+      "firstName": "Вадим",
+      "lastName": "Лаврук",
       "middleName": "Максимович",
       "email": "vadimlavruk4@gmail.com",
       "phone": "+375336518780",
@@ -127,8 +154,72 @@
       "agreedToTerms": true,
       "createdAt": "2025-08-04T16:08:52.736Z",
       "role": "admin"
+    },
+    {
+      "id": "b3a3",
+      "firstName": "Петя",
+      "lastName": "Петров",
+      "middleName": "Петрович",
+      "email": "petrpetya123@gmail.com",
+      "phone": "+375297773030",
+      "birthDate": "2000-06-05",
+      "username": "петпет658",
+      "password": "DJC@s8S^zeur",
+      "agreedToTerms": true,
+      "createdAt": "2025-08-30T10:21:32.646Z",
+      "role": "customer"
     }
   ],
   "feedback": [],
-  "orders": []
+  "orders": [
+    {
+      "id": "1",
+      "userId": "b3a3",
+      "items": [
+        {
+          "productId": 8,
+          "productName": "Berry Twist undefined",
+          "quantity": 1,
+          "price": 48
+        }
+      ],
+      "totalAmount": 48,
+      "createdAt": "2025-08-31T14:45:07.755Z",
+      "status": "completed"
+    },
+    {
+      "id": "2",
+      "userId": "b3a3",
+      "items": [
+        {
+          "productId": 9,
+          "productName": "Mint Charcoal",
+          "quantity": 1,
+          "price": 20
+        },
+        {
+          "productId": 10,
+          "productName": "Fresh Mint Advanced",
+          "quantity": 1,
+          "price": 20
+        }
+      ],
+      "createdAt": "2025-08-31T15:07:32.837Z",
+      "status": "completed"
+    },
+    {
+      "id": "3",
+      "userId": "b3a3",
+      "items": [
+        {
+          "productId": 1,
+          "productName": "Fresh Mint",
+          "quantity": 1,
+          "price": 20
+        }
+      ],
+      "createdAt": "2025-08-31T15:26:14.286Z",
+      "status": "completed"
+    }
+  ]
 }

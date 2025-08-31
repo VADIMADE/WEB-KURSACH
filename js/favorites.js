@@ -1,13 +1,18 @@
 const API_URL = 'http://localhost:3000';
 
-// Функция для генерации HTML цены
 function renderPrice(product) {
-  const price1 = product.price1 ? `<p class="products-price1">$${product.price1}</p>` : '';
-  const price2 = `<p class="products-price2">$${product.price2}</p>`;
-  return price1 + price2;
+  // Если есть цена со скидкой (price1) и она меньше оригинальной (price2)
+  if (product.price1 && product.price1 < product.price2) {
+    return `
+      <p class="products-price1">$${product.price1}</p>
+      <p class="products-price2">$${product.price2}</p>
+    `;
+  } else {
+    // Если нет скидки, показываем только оригинальную цену
+    return `<p class="products-price2">$${product.price2}</p>`;
+  }
 }
 
-// Функция для генерации звездного рейтинга
 function renderStars(rating) {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
@@ -17,49 +22,14 @@ function renderStars(rating) {
   return stars;
 }
 
-// Функция для загрузки избранных товаров
-// async function loadFavorites() {
-//   try {
-//     // Получаем все записи из избранного
-//     const favoritesResponse = await fetch(`${API_URL}/favorites?_sort=addedAt&_order=desc`);
-//     const favorites = await favoritesResponse.json();
-    
-//     if (favorites.length === 0) {
-//       showEmptyMessage();
-//       return;
-//     }
-    
-//     // Получаем ID всех товаров в избранном (как строки, так как в products id - строки)
-//     const productIds = favorites.map(fav => fav.productId.toString());
-    
-//     // Загружаем полную информацию о товарах
-//     const productsResponse = await fetch(`${API_URL}/products`);
-//     const allProducts = await productsResponse.json();
-    
-//     // Фильтруем только те товары, которые есть в избранном
-//     const favoriteProducts = allProducts.filter(product => 
-//       productIds.includes(product.id)
-//     );
-    
-//     // Отображаем товары
-//     renderFavorites(favoriteProducts, favorites);
-    
-//   } catch (error) {
-//     console.error('Error loading favorites:', error);
-//     showEmptyMessage('Failed to load favorites. Please try again later.');
-//   }
-// }
-
-// Функция для загрузки избранных товаров
 async function loadFavorites() {
   try {
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
       showEmptyMessage('Please log in to view your favorites');
       return;
     }
 
-    // Получаем все записи из избранного для текущего пользователя
     const favoritesResponse = await fetch(`${API_URL}/favorites?userId=${currentUser.id}&_sort=addedAt&_order=desc`);
     const favorites = await favoritesResponse.json();
     
@@ -68,19 +38,14 @@ async function loadFavorites() {
       return;
     }
     
-    // Получаем ID всех товаров в избранном
     const productIds = favorites.map(fav => fav.productId.toString());
-    
-    // Загружаем полную информацию о товарах
     const productsResponse = await fetch(`${API_URL}/products`);
     const allProducts = await productsResponse.json();
     
-    // Фильтруем только те товары, которые есть в избранном
     const favoriteProducts = allProducts.filter(product => 
       productIds.includes(product.id)
     );
     
-    // Отображаем товары
     renderFavorites(favoriteProducts, favorites);
     
   } catch (error) {
@@ -89,7 +54,6 @@ async function loadFavorites() {
   }
 }
 
-// Функция для отображения избранных товаров
 function renderFavorites(products, favorites) {
   const container = document.getElementById('favorites-container');
   container.innerHTML = '';
@@ -100,7 +64,7 @@ function renderFavorites(products, favorites) {
     const card = document.createElement('div');
     card.className = 'products-card favorites-card';
     card.innerHTML = `
-      <a href="#!"><img src="${product.image}" alt="image"></a>
+      <a href="#!"><img src="${product.image}" alt="${product.title1}"></a>
       <div class="products-card-description-container">
         <div class="products-card-desc-text-container">
           <p class="products-text1">${product.title1}</p>
@@ -121,7 +85,6 @@ function renderFavorites(products, favorites) {
     container.appendChild(card);
   });
   
-  // Добавляем обработчики событий для кнопок
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', addToCart);
   });
@@ -131,28 +94,6 @@ function renderFavorites(products, favorites) {
   });
 }
 
-// Функция для удаления товара из избранного
-// async function removeFromFavorites(event) {
-//   const favoriteId = event.target.getAttribute('data-fav-id');
-  
-//   try {
-//     const response = await fetch(`${API_URL}/favorites/${favoriteId}`, {
-//       method: 'DELETE'
-//     });
-    
-//     if (response.ok) {
-//       // Перезагружаем список избранных
-//       loadFavorites();
-//     } else {
-//       alert('Failed to remove from favorites');
-//     }
-//   } catch (error) {
-//     console.error('Error removing from favorites:', error);
-//     alert('Failed to remove from favorites');
-//   }
-// }
-
-// Функция для удаления товара из избранного
 async function removeFromFavorites(event) {
   const favoriteId = event.target.getAttribute('data-fav-id');
   
@@ -162,7 +103,6 @@ async function removeFromFavorites(event) {
     });
     
     if (response.ok) {
-      // Перезагружаем список избранных
       loadFavorites();
     } else {
       alert('Failed to remove from favorites');
@@ -173,52 +113,8 @@ async function removeFromFavorites(event) {
   }
 }
 
-// Функция для добавления в корзину
-// async function addToCart(event) {
-//   const productId = event.target.getAttribute('data-id');
-  
-//   try {
-//     // Проверяем, есть ли уже этот товар в корзине
-//     const response = await fetch(`${API_URL}/cart?productId=${productId}`);
-//     const existingItems = await response.json();
-    
-//     if (existingItems.length > 0) {
-//       // Увеличиваем количество
-//       await fetch(`${API_URL}/cart/${existingItems[0].id}`, {
-//         method: 'PATCH',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           quantity: existingItems[0].quantity + 1
-//         })
-//       });
-//     } else {
-//       // Добавляем новый товар
-//       await fetch(`${API_URL}/cart`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           productId,
-//           quantity: 1,
-//           addedAt: new Date().toISOString()
-//         })
-//       });
-//     }
-    
-//     alert('Product added to cart!');
-//   } catch (error) {
-//     console.error('Error adding to cart:', error);
-//     alert('Failed to add product to cart');
-//   }
-// }
-
-// Функция для добавления в корзину
 async function addToCart(event) {
-  // Проверяем авторизацию
-  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
     alert('Please log in to add items to cart');
     window.location.href = 'signin.html';
@@ -228,12 +124,10 @@ async function addToCart(event) {
   const productId = event.target.getAttribute('data-id');
   
   try {
-    // Проверяем, есть ли уже этот товар в корзине у этого пользователя
     const response = await fetch(`${API_URL}/cart?productId=${productId}&userId=${currentUser.id}`);
     const existingItems = await response.json();
     
     if (existingItems.length > 0) {
-      // Увеличиваем количество
       await fetch(`${API_URL}/cart/${existingItems[0].id}`, {
         method: 'PATCH',
         headers: {
@@ -244,7 +138,6 @@ async function addToCart(event) {
         })
       });
     } else {
-      // Добавляем новый товар
       await fetch(`${API_URL}/cart`, {
         method: 'POST',
         headers: {
@@ -266,7 +159,6 @@ async function addToCart(event) {
   }
 }
 
-// Функция для отображения сообщения, когда избранное пусто
 function showEmptyMessage(message = 'You have no favorite products yet.') {
   const container = document.getElementById('favorites-container');
   container.innerHTML = `
@@ -277,20 +169,13 @@ function showEmptyMessage(message = 'You have no favorite products yet.') {
   `;
 }
 
-// Инициализация при загрузке страницы
-// document.addEventListener('DOMContentLoaded', () => {
-//   loadFavorites();
-// });
-
-// Проверка авторизации при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
     alert('Please log in to view your favorites');
     window.location.href = 'signin.html';
     return;
   }
   
-  // Инициализация избранного
   loadFavorites();
 });

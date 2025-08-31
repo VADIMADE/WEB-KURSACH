@@ -42,14 +42,17 @@
     
       <img class="header-logo" src="../img/header-logo.png" alt="logo-Bite">
 
-
-
       <div class="header-image">
         <div class="language-switcher">
           <button class="lang-btn active" data-lang="en">EN</button>
           <button class="lang-btn" data-lang="ru">RU</button>
         </div>
-        <button class="theme-toggle" id="themeToggle">🌙</button>
+        <button class="eye" id="eye">
+          <img class="header-image-eye" src="../img/header-eye.png" alt="image-eye">
+        </button>
+        <button class="theme-toggle" id="themeToggle">
+          <img class="header-image-theme-toggle" src="../img/header-theme-toggle.png" alt="image-theme-toggle">
+        </button>
         <a href="favorites.html">
           <img class="header-image-favorites" src="../img/header-favorites.png" alt="image-favorites">
         </a>
@@ -560,7 +563,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const user = JSON.parse(sessionStorage.getItem('currentUser'));
+      const user = JSON.parse(localStorage.getItem('currentUser'));
       const adminLink = document.getElementById('adminPanelLink');
       if (user && user.role === 'admin' && adminLink) {
         adminLink.style.display = 'block';

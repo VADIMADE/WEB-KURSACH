@@ -6,9 +6,14 @@ let totalProducts = 0;
 
 // Функция для генерации HTML цены
 function renderPrice(product) {
-  const price1 = product.price1 ? `<p class="products-price1">$${product.price1}</p>` : '';
-  const price2 = `<p class="products-price2">$${product.price2}</p>`;
-  return price1 + price2;
+  // price2 - оригинальная цена, price1 - цена со скидкой
+  const discountedPrice = product.price1 ? `<p class="products-price1">$${product.price1}</p>` : '';
+  const originalPrice = product.price2 ? `<p class="products-price2">$${product.price2}</p>` : '';
+  
+  // Если есть скидка, показываем обе цены, иначе только оригинальную
+  return product.price1 && product.price1 < product.price2 
+    ? `${discountedPrice}${originalPrice}`
+    : originalPrice;
 }
 
 // Функция для генерации звездного рейтинга
@@ -24,7 +29,6 @@ function renderStars(rating) {
 // Функция для загрузки продуктов с сервера
 async function fetchProducts(params = {}) {
   try {
-    // Сначала получаем ВСЕ товары (для поиска и сортировки)
     let response = await fetch(`${API_URL}/products`);
     let allProducts = await response.json();
     
@@ -40,16 +44,16 @@ async function fetchProducts(params = {}) {
       const searchTerm = params.search.toLowerCase();
       allProducts = allProducts.filter(product => 
         product.title1.toLowerCase().includes(searchTerm) || 
-        product.title2.toLowerCase().includes(searchTerm)
+        (product.category && product.category.toLowerCase().includes(searchTerm))
       );
     }
     
-    // Сортировка на клиенте (более надежная)
+    // Сортировка на клиенте
     if (params.sortField) {
       allProducts.sort((a, b) => {
         let valA, valB;
         
-        // Для цен берем price2 как основной
+        // Для цен используем price1 (со скидкой) если есть, иначе price2 (оригинальная)
         if (params.sortField === 'price') {
           valA = parseFloat(a.price1 || a.price2 || 0);
           valB = parseFloat(b.price1 || b.price2 || 0);
@@ -71,10 +75,8 @@ async function fetchProducts(params = {}) {
       });
     }
     
-    // Обновляем общее количество
     totalProducts = allProducts.length;
     
-    // Применяем пагинацию
     const startIndex = (currentPage - 1) * productsPerPage;
     return allProducts.slice(startIndex, startIndex + productsPerPage);
     
@@ -93,7 +95,6 @@ function renderProducts(products) {
   container.innerHTML = '';
   paginationNumbers.innerHTML = '';
 
-  // Сообщение если пусто
   if (products.length === 0) {
     noProductsMessage.style.display = 'flex';
     document.querySelector('.pagination-container').style.display = 'none';
@@ -103,16 +104,15 @@ function renderProducts(products) {
     document.querySelector('.pagination-container').style.display = 'flex';
   }
 
-  // Отображаем товары
   products.forEach(product => {
     const card = document.createElement('div');
     card.className = 'products-card';
     card.innerHTML = `
-      <a href="#!"><img src="${product.image}" alt="image"></a>
+      <a href="#!"><img src="${product.image}" alt="${product.title1}"></a>
       <div class="products-card-description-container">
         <div class="products-card-desc-text-container">
           <p class="products-text1">${product.title1}</p>
-          <p class="products-text2">${product.title2}</p>
+          <p class="products-text2">${product.category}</p>
         </div>
         <div class="products-card-desc-price-container">
           ${renderPrice(product)}
@@ -129,10 +129,8 @@ function renderProducts(products) {
     container.appendChild(card);
   });
 
-  // Обновляем пагинацию
   updatePagination();
   
-  // Добавляем обработчики событий для кнопок
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', addToCart);
   });
@@ -161,7 +159,6 @@ function updatePagination() {
     paginationNumbers.appendChild(pageBtn);
   }
 
-  // Кнопки "влево/вправо"
   document.getElementById('prev-page').disabled = currentPage === 1;
   document.getElementById('next-page').disabled = currentPage === totalPages || totalPages === 0;
 }
@@ -174,7 +171,6 @@ async function filterAndSortProducts() {
     document.querySelectorAll('input[name="category"]:checked')
   ).map(checkbox => checkbox.value);
 
-  // Параметры сортировки
   let sortField, sortOrder;
   switch (sortValue) {
     case 'price-asc':
@@ -215,51 +211,8 @@ async function filterAndSortProducts() {
   renderProducts(products);
 }
 
-// Функция для добавления в корзину
-// async function addToCart(event) {
-//   const productId = parseInt(event.target.getAttribute('data-id'));
-  
-//   try {
-//     // Проверяем, есть ли уже этот товар в корзине
-//     const response = await fetch(`${API_URL}/cart?productId=${productId}`);
-//     const existingItems = await response.json();
-    
-//     if (existingItems.length > 0) {
-//       // Увеличиваем количество
-//       await fetch(`${API_URL}/cart/${existingItems[0].id}`, {
-//         method: 'PATCH',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           quantity: existingItems[0].quantity + 1
-//         })
-//       });
-//     } else {
-//       // Добавляем новый товар
-//       await fetch(`${API_URL}/cart`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           productId,
-//           quantity: 1,
-//           addedAt: new Date().toISOString()
-//         })
-//       });
-//     }
-    
-//     alert('Product added to cart!');
-//   } catch (error) {
-//     console.error('Error adding to cart:', error);
-//     alert('Failed to add product to cart');
-//   }
-// }
-
 async function addToCart(event) {
-  // Проверяем авторизацию
-  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
     alert('Please log in to add items to cart');
     window.location.href = 'signin.html';
@@ -269,12 +222,10 @@ async function addToCart(event) {
   const productId = parseInt(event.target.getAttribute('data-id'));
   
   try {
-    // Проверяем, есть ли уже этот товар в корзине у этого пользователя
     const response = await fetch(`${API_URL}/cart?productId=${productId}&userId=${currentUser.id}`);
     const existingItems = await response.json();
     
     if (existingItems.length > 0) {
-      // Увеличиваем количество
       await fetch(`${API_URL}/cart/${existingItems[0].id}`, {
         method: 'PATCH',
         headers: {
@@ -285,7 +236,6 @@ async function addToCart(event) {
         })
       });
     } else {
-      // Добавляем новый товар
       await fetch(`${API_URL}/cart`, {
         method: 'POST',
         headers: {
@@ -307,41 +257,8 @@ async function addToCart(event) {
   }
 }
 
-// Функция для добавления в избранное
-// async function addToFavorites(event) {
-//   const productId = parseInt(event.target.getAttribute('data-id'));
-  
-//   try {
-//     // Проверяем, есть ли уже этот товар в избранном
-//     const response = await fetch(`${API_URL}/favorites?productId=${productId}`);
-//     const existingItems = await response.json();
-    
-//     if (existingItems.length === 0) {
-//       // Добавляем новый товар
-//       await fetch(`${API_URL}/favorites`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           productId,
-//           addedAt: new Date().toISOString()
-//         })
-//       });
-      
-//       alert('Product added to favorites!');
-//     } else {
-//       alert('Product is already in favorites!');
-//     }
-//   } catch (error) {
-//     console.error('Error adding to favorites:', error);
-//     alert('Failed to add product to favorites');
-//   }
-// }
-
 async function addToFavorites(event) {
-  // Проверяем авторизацию
-  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
     alert('Please log in to add items to favorites');
     window.location.href = 'signin.html';
@@ -351,12 +268,10 @@ async function addToFavorites(event) {
   const productId = parseInt(event.target.getAttribute('data-id'));
   
   try {
-    // Проверяем, есть ли уже этот товар в избранном у этого пользователя
     const response = await fetch(`${API_URL}/favorites?productId=${productId}&userId=${currentUser.id}`);
     const existingItems = await response.json();
     
     if (existingItems.length === 0) {
-      // Добавляем новый товар
       await fetch(`${API_URL}/favorites`, {
         method: 'POST',
         headers: {
@@ -381,12 +296,10 @@ async function addToFavorites(event) {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', async () => {
-  // Загружаем продукты
   const products = await fetchProducts();
   currentProductList = products;
   renderProducts(products);
   
-  // Обработчики событий для фильтров
   document.getElementById('search-input').addEventListener('input', () => {
     currentPage = 1;
     filterAndSortProducts();
@@ -397,7 +310,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     filterAndSortProducts();
   });
 
-  // Обработчики для чекбоксов категорий
   document.querySelectorAll('input[name="category"]').forEach(checkbox => {
     checkbox.addEventListener('change', () => {
       currentPage = 1;
@@ -405,7 +317,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Обработчики для кнопок пагинации
   document.getElementById('prev-page').addEventListener('click', () => {
     if (currentPage > 1) {
       currentPage--;

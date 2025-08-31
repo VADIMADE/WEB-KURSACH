@@ -1,38 +1,10 @@
 const API_URL = 'http://localhost:3000';
 
-// Функция для загрузки корзины и продуктов
-// async function fetchCartWithProducts() {
-//   try {
-//     // Получаем корзину и продукты отдельно
-//     const [cartResponse, productsResponse] = await Promise.all([
-//       fetch(`${API_URL}/cart`),
-//       fetch(`${API_URL}/products`)
-//     ]);
-    
-//     const cartItems = await cartResponse.json();
-//     const products = await productsResponse.json();
-    
-//     // Сопоставляем продукты с элементами корзины
-//     return cartItems.map(item => {
-//       const product = products.find(p => p.id == item.productId);
-//       return {
-//         ...item,
-//         product: product || null
-//       };
-//     });
-//   } catch (error) {
-//     console.error('Error fetching cart:', error);
-//     return [];
-//   }
-// }
-
-// Функция для загрузки корзины и продуктов
 async function fetchCartWithProducts() {
   try {
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) return [];
 
-    // Получаем корзину и продукты отдельно
     const [cartResponse, productsResponse] = await Promise.all([
       fetch(`${API_URL}/cart?userId=${currentUser.id}`),
       fetch(`${API_URL}/products`)
@@ -41,7 +13,6 @@ async function fetchCartWithProducts() {
     const cartItems = await cartResponse.json();
     const products = await productsResponse.json();
     
-    // Сопоставляем продукты с элементами корзины
     return cartItems.map(item => {
       const product = products.find(p => p.id == item.productId);
       return {
@@ -55,22 +26,29 @@ async function fetchCartWithProducts() {
   }
 }
 
-// Функция для отображения товаров в корзине
+async function getNextOrderId() {
+  try {
+    const response = await fetch(`${API_URL}/orders`);
+    const orders = await response.json();
+    
+    if (orders.length === 0) return 1;
+    
+    const maxId = Math.max(...orders.map(order => parseInt(order.id) || 0));
+    return maxId + 1;
+  } catch (error) {
+    console.error('Error getting next order ID:', error);
+    return Date.now();
+  }
+}
+
 async function renderCart() {
   const cartContainer = document.getElementById('cart-container');
   const emptyCartMessage = document.getElementById('empty-cart-message');
   const cartSummary = document.querySelector('.cart-summary');
-  const successMessage = document.getElementById('success-message');
-  
-  // Скрываем сообщение об успехе по умолчанию
-  successMessage.style.display = 'none';
   
   const cartItems = await fetchCartWithProducts();
-  
-  // Очищаем контейнер
   cartContainer.innerHTML = '';
   
-  // Проверяем, пуста ли корзина
   if (cartItems.length === 0 || cartItems.some(item => !item.product)) {
     emptyCartMessage.style.display = 'block';
     cartSummary.style.display = 'none';
@@ -80,15 +58,14 @@ async function renderCart() {
     cartSummary.style.display = 'flex';
   }
   
-  // Отображаем каждый товар
   let totalPrice = 0;
   
   cartItems.forEach(item => {
     if (!item.product) return;
     
     const product = item.product;
-    // Используем price2, если есть, иначе price1, иначе 0
-    const price = parseFloat(product.price2 || product.price1 || 0);
+    // ИСПРАВЛЕНО: используем price1 (со скидкой) если есть, иначе price2
+    const price = parseFloat(product.price1 || product.price2 || 0);
     const itemTotal = price * item.quantity;
     totalPrice += itemTotal;
     
@@ -99,7 +76,7 @@ async function renderCart() {
         <img src="${product.image}" alt="${product.title1}">
       </div>
       <div class="cart-item-details">
-        <h3>${product.title1} ${product.title2}</h3>
+        <h3>${product.title1}</h3> <!-- Убрал ${product.title2} так как его нет -->
         <p class="cart-item-price">$${price.toFixed(2)}</p>
       </div>
       <div class="cart-item-quantity">
@@ -118,16 +95,11 @@ async function renderCart() {
     cartContainer.appendChild(cartItemElement);
   });
   
-  // Обновляем итоговую сумму
   document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
-  
-  // Добавляем обработчики событий
   addEventListeners();
 }
 
-// Остальные функции остаются без изменений
 async function addEventListeners() {
-  // Удаление товара
   document.querySelectorAll('.remove-btn').forEach(button => {
     button.addEventListener('click', async (e) => {
       const itemId = e.target.getAttribute('data-id');
@@ -136,7 +108,6 @@ async function addEventListeners() {
     });
   });
   
-  // Уменьшение количества
   document.querySelectorAll('.minus').forEach(button => {
     button.addEventListener('click', async (e) => {
       const itemId = e.target.getAttribute('data-id');
@@ -145,7 +116,6 @@ async function addEventListeners() {
     });
   });
   
-  // Увеличение количества
   document.querySelectorAll('.plus').forEach(button => {
     button.addEventListener('click', async (e) => {
       const itemId = e.target.getAttribute('data-id');
@@ -154,15 +124,12 @@ async function addEventListeners() {
     });
   });
   
-  // Оформление заказа
   document.getElementById('checkout-button').addEventListener('click', checkout);
 }
 
 async function removeFromCart(itemId) {
   try {
-    await fetch(`${API_URL}/cart/${itemId}`, {
-      method: 'DELETE'
-    });
+    await fetch(`${API_URL}/cart/${itemId}`, { method: 'DELETE' });
   } catch (error) {
     console.error('Error removing item from cart:', error);
     alert('Failed to remove item from cart');
@@ -171,25 +138,17 @@ async function removeFromCart(itemId) {
 
 async function updateQuantity(itemId, change) {
   try {
-    // Получаем текущий элемент корзины
     const response = await fetch(`${API_URL}/cart/${itemId}`);
     const item = await response.json();
-    
     const newQuantity = item.quantity + change;
     
     if (newQuantity <= 0) {
-      // Если количество стало 0 или меньше, удаляем товар
       await removeFromCart(itemId);
     } else {
-      // Обновляем количество
       await fetch(`${API_URL}/cart/${itemId}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          quantity: newQuantity
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantity: newQuantity })
       });
     }
   } catch (error) {
@@ -198,39 +157,101 @@ async function updateQuantity(itemId, change) {
   }
 }
 
-async function checkout() {
+async function createOrder(cartItems) {
   try {
-    // Очищаем корзину
-    const cartItems = await fetchCartWithProducts();
-    for (const item of cartItems) {
-      await removeFromCart(item.id);
-    }
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const orderId = await getNextOrderId();
     
-    // Показываем сообщение об успехе
-    document.getElementById('cart-container').style.display = 'none';
-    document.querySelector('.cart-summary').style.display = 'none';
-    document.getElementById('success-message').style.display = 'block';
-    
+    const order = {
+      id: orderId.toString(),
+      userId: currentUser.id,
+      items: cartItems.filter(item => item.product).map(item => {
+        // Используем price1 (со скидкой) если есть, иначе price2
+        const price = parseFloat(item.product.price1 || item.product.price2 || 0);
+        return {
+          productId: parseInt(item.productId),
+          productName: item.product.title1 || 'Unnamed Product',
+          quantity: item.quantity,
+          price: price
+        };
+      }),
+      createdAt: new Date().toISOString(),
+      status: 'completed'
+    };
+
+    const response = await fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order)
+    });
+
+    if (!response.ok) throw new Error('Failed to create order');
+    return await response.json();
   } catch (error) {
-    console.error('Error during checkout:', error);
-    alert('Failed to complete checkout');
+    console.error('Error creating order:', error);
+    throw error;
   }
 }
 
-// Инициализация при загрузке страницы
-// document.addEventListener('DOMContentLoaded', async () => {
-//   await renderCart();
-// });
+async function clearCart() {
+  try {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return;
+    
+    const response = await fetch(`${API_URL}/cart?userId=${currentUser.id}`);
+    const cartItems = await response.json();
+    
+    for (const item of cartItems) {
+      await fetch(`${API_URL}/cart/${item.id}`, {
+        method: 'DELETE'
+      });
+    }
+  } catch (error) {
+    console.error('Error clearing cart:', error);
+    throw error;
+  }
+}
 
-// Проверка авторизации при загрузке страницы
+async function checkout() {
+  try {
+    const cartItems = await fetchCartWithProducts();
+    const validCartItems = cartItems.filter(item => item.product);
+    
+    if (validCartItems.length === 0) {
+      alert('Your cart is empty or contains invalid items');
+      return;
+    }
+
+    // Создаем заказ
+    await createOrder(validCartItems);
+    
+    // Очищаем корзину
+    await clearCart();
+    
+    // Правильно рассчитываем общую сумму (используем price1 если есть скидка)
+    const totalAmount = validCartItems.reduce((total, item) => {
+      const price = parseFloat(item.product.price1 || item.product.price2 || 0);
+      return total + (price * item.quantity);
+    }, 0);
+    
+    alert(`✅ Purchase successful!\n\nTotal: $${totalAmount.toFixed(2)}\nItems: ${validCartItems.length} product(s)\n\nThank you for your order!`);
+    
+    // Обновляем корзину (она будет пустой)
+    renderCart();
+    
+  } catch (error) {
+    console.error('Error during checkout:', error);
+    alert('Failed to complete checkout. Please try again.');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
     alert('Please log in to view your cart');
     window.location.href = 'signin.html';
     return;
   }
   
-  // Инициализация корзины
   renderCart();
 });
