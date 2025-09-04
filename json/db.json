@@ -123,9 +123,47 @@
       "productId": 1,
       "userId": "b3a3",
       "addedAt": "2025-08-31T15:39:53.343Z"
+    },
+    {
+      "id": "21fb",
+      "productId": 1,
+      "userId": "3a24",
+      "addedAt": "2025-09-02T15:45:07.906Z"
+    },
+    {
+      "id": "9352",
+      "productId": 2,
+      "userId": "3a24",
+      "addedAt": "2025-09-02T15:45:09.639Z"
+    },
+    {
+      "id": "a5db",
+      "productId": 3,
+      "userId": "3a24",
+      "addedAt": "2025-09-02T15:45:11.089Z"
+    },
+    {
+      "id": "e925",
+      "productId": 4,
+      "userId": "3a24",
+      "addedAt": "2025-09-02T15:45:13.126Z"
+    },
+    {
+      "id": "4db4",
+      "productId": 5,
+      "userId": "3a24",
+      "addedAt": "2025-09-02T15:45:18.140Z"
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": "a2c0",
+      "productId": 1,
+      "userId": "3a24",
+      "quantity": 1,
+      "addedAt": "2025-09-02T15:58:36.215Z"
+    }
+  ],
   "users": [
     {
       "id": "1",
@@ -219,6 +257,34 @@
         }
       ],
       "createdAt": "2025-08-31T15:26:14.286Z",
+      "status": "completed"
+    },
+    {
+      "id": "4",
+      "userId": "3a24",
+      "items": [
+        {
+          "productId": 8,
+          "productName": "Berry Twist",
+          "quantity": 1,
+          "price": 20
+        }
+      ],
+      "createdAt": "2025-09-01T05:43:39.812Z",
+      "status": "completed"
+    },
+    {
+      "id": "5",
+      "userId": "3a24",
+      "items": [
+        {
+          "productId": 1,
+          "productName": "Fresh Mint",
+          "quantity": 3,
+          "price": 20
+        }
+      ],
+      "createdAt": "2025-09-01T14:29:40.484Z",
       "status": "completed"
     }
   ]

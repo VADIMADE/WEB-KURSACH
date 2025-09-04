@@ -209,6 +209,7 @@ body {
   font-size: 24px;
   line-height: 164%;
   letter-spacing: 0.05em;
+  width: 790px;
   text-align: center;
   color: #172345;
   margin: 0 auto;
@@ -367,6 +368,7 @@ body {
 .intro-sec-description-text {
   font-size: 33px;
   line-height: 130%;
+  width: 420px;
   text-align: center;
   color: #172345;
 }
@@ -401,6 +403,7 @@ body {
 .plastic-free-sec-description {
   font-size: 31px;
   line-height: 134%;
+  width: 580px;
   color: #172345;
   margin-bottom: 130px;
 }

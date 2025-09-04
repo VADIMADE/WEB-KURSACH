@@ -3,15 +3,6 @@ const API_URL = 'http://localhost:3000';
 const MAX_USERNAME_ATTEMPTS = 5;
 const COMMON_PASSWORDS = ['password', '12345678', 'qwerty123', 'admin123', 'welcome1'];
 
-// Настройки по умолчанию
-const DEFAULT_USER_SETTINGS = {
-  theme: 'light',
-  language: 'en',
-  currency: 'USD',
-  notifications: true,
-  fontSize: 'medium'
-};
-
 // DOM элементы
 const registerForm = document.getElementById('registerForm');
 const loginForm = document.getElementById('loginForm');
@@ -33,7 +24,6 @@ function checkAuthState() {
     }
     
     showUserPanel(user);
-    applyUserSettings(user.id);
     
     if (user.role === 'admin') {
       addAdminPanelLink();
@@ -406,12 +396,7 @@ function initLoginForm() {
         return;
       }
 
-      // Сохраняем в localStorage вместо sessionStorage
       localStorage.setItem('currentUser', JSON.stringify(user));
-      
-      // Сохраняем настройки по умолчанию для нового пользователя
-      saveUserSettings(user.id, DEFAULT_USER_SETTINGS);
-      
       alert(`Добро пожаловать, ${user.firstName || user.username}!`);
       window.location.href = 'index.html';
 
@@ -450,10 +435,6 @@ function showUserPanel(user) {
         alert('Password must be at least 8 characters long');
       }
     });
-    
-    document.getElementById('resetSettingsBtn').addEventListener('click', () => {
-      resetUserSettings(user.id);
-    });
   }
 }
 
@@ -462,9 +443,6 @@ function logout() {
   const userName = user ? (user.firstName || user.username) : 'Пользователь';
   
   localStorage.removeItem('currentUser');
-  if (user) {
-    localStorage.removeItem(`userSettings_${user.id}`);
-  }
   
   const loginContainer = document.getElementById('loginContainer');
   const userPanel = document.getElementById('userPanel');
@@ -476,28 +454,4 @@ function logout() {
   setTimeout(() => {
     window.location.reload();
   }, 500);
-}
-
-// Функции для работы с настройками
-function saveUserSettings(userId, settings) {
-  localStorage.setItem(`userSettings_${userId}`, JSON.stringify(settings));
-}
-
-function loadUserSettings(userId) {
-  const settings = localStorage.getItem(`userSettings_${userId}`);
-  return settings ? JSON.parse(settings) : DEFAULT_USER_SETTINGS;
-}
-
-function resetUserSettings(userId) {
-  if (confirm('Are you sure you want to reset all settings to default?')) {
-    saveUserSettings(userId, DEFAULT_USER_SETTINGS);
-    applyUserSettings(userId);
-    alert('Settings have been reset to default');
-  }
-}
-
-function applyUserSettings(userId) {
-  const settings = loadUserSettings(userId);
-  document.documentElement.setAttribute('data-theme', settings.theme);
-  console.log('Applied user settings:', settings);
 }
