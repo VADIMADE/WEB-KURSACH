@@ -194,18 +194,51 @@ async function createOrder(cartItems) {
 async function clearCart() {
   try {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser) return;
-    
-    const response = await fetch(`${API_URL}/cart?userId=${currentUser.id}`);
-    const cartItems = await response.json();
-    
-    for (const item of cartItems) {
-      await fetch(`${API_URL}/cart/${item.id}`, {
-        method: 'DELETE'
-      });
+    if (!currentUser) {
+      console.log('No user logged in');
+      return;
     }
+
+    console.log('Clearing cart for user:', currentUser.id);
+    
+    // Получаем все элементы корзины пользователя
+    const response = await fetch(`${API_URL}/cart?userId=${currentUser.id}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch cart: ${response.status}`);
+    }
+    
+    const cartItems = await response.json();
+    console.log('Found cart items:', cartItems);
+
+    // Удаляем каждый элемент корзины
+    for (const item of cartItems) {
+      try {
+        console.log('Deleting item:', item.id);
+        const deleteResponse = await fetch(`${API_URL}/cart/${item.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!deleteResponse.ok) {
+          console.error(`Failed to delete item ${item.id}:`, deleteResponse.status);
+          // Продолжаем удаление других элементов даже если один не удалился
+          continue;
+        }
+
+        console.log(`Item ${item.id} deleted successfully`);
+
+      } catch (error) {
+        console.error(`Error deleting item ${item.id}:`, error);
+        // Продолжаем удаление других элементов
+      }
+    }
+
+    console.log('Cart clearing process completed');
+    
   } catch (error) {
-    console.error('Error clearing cart:', error);
+    console.error('Error in clearCart:', error);
     throw error;
   }
 }
@@ -220,9 +253,13 @@ async function checkout() {
       return;
     }
 
-    await createOrder(validCartItems);
+    // Создаем заказ
+    const order = await createOrder(validCartItems);
+    console.log('Order created:', order);
 
+    // Очищаем корзину
     await clearCart();
+    console.log('Cart cleared successfully');
 
     const totalAmount = validCartItems.reduce((total, item) => {
       const price = parseFloat(item.product.price1 || item.product.price2 || 0);
@@ -231,7 +268,8 @@ async function checkout() {
     
     alert(`✅ Purchase successful!\n\nTotal: $${totalAmount.toFixed(2)}\nItems: ${validCartItems.length} product(s)\n\nThank you for your order!`);
 
-    renderCart();
+    // Обновляем отображение корзины
+    await renderCart();
     
   } catch (error) {
     console.error('Error during checkout:', error);

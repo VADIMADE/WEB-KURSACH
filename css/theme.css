@@ -256,3 +256,78 @@
 [data-theme="dark"] .theme-toggle img {
   filter: none;
 }
+
+[data-theme="dark"] .slider {
+  position: relative;
+  overflow: hidden;
+  margin: 30px 0;
+}
+
+[data-theme="dark"] .slider-container {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+[data-theme="dark"] .slide {
+  min-width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] .slide-content {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 30px;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] .slide-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .reviews-sec-feedback-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+[data-theme="dark"] .reviews-sec-feedback-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: #c9d1d9;
+  font-style: italic;
+}
+
+[data-theme="dark"] .reviews-sec-feedback-text {
+  font-size: 0.9rem;
+  color: #8896b0;
+  font-weight: 500;
+}
+
+/* Slider Navigation */
+[data-theme="dark"] .slider-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+[data-theme="dark"] .slider-dot {
+  width: 12px;
+  height: 12px;
+  background-color: var(--border-color);
+  border-radius: 50%;
+  margin: 0 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+[data-theme="dark"] .slider-dot.active {
+  background-color: var(--primary-color);
+  transform: scale(1.2);
+}

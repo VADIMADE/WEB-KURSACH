@@ -142,18 +142,6 @@
       "addedAt": "2025-09-02T15:45:09.639Z"
     },
     {
-      "id": "a5db",
-      "productId": 3,
-      "userId": 2,
-      "addedAt": "2025-09-02T15:45:11.089Z"
-    },
-    {
-      "id": "bfeb",
-      "productId": 1,
-      "userId": 2,
-      "addedAt": "2025-09-12T12:04:03.834Z"
-    },
-    {
       "id": "1272",
       "productId": 1,
       "userId": 1,
@@ -184,16 +172,28 @@
       "addedAt": "2025-09-15T05:38:00.928Z"
     },
     {
-      "id": "91e4",
-      "productId": 5,
+      "id": "3d45",
+      "productId": 1,
       "userId": "2",
-      "addedAt": "2025-09-15T15:46:05.637Z"
+      "addedAt": "2025-09-16T07:35:16.264Z"
     },
     {
-      "id": "a25a",
-      "productId": 6,
+      "id": "b9bf",
+      "productId": 2,
       "userId": "2",
-      "addedAt": "2025-09-15T15:46:07.950Z"
+      "addedAt": "2025-09-16T07:35:17.730Z"
+    },
+    {
+      "id": "18c3",
+      "productId": 3,
+      "userId": "2",
+      "addedAt": "2025-09-16T07:35:19.181Z"
+    },
+    {
+      "id": "34ce",
+      "productId": 4,
+      "userId": "2",
+      "addedAt": "2025-09-16T07:35:21.217Z"
     }
   ],
   "cart": [
@@ -356,17 +356,22 @@
   "orders": [
     {
       "id": "1",
-      "userId": "b3a3",
+      "userId": "4",
       "items": [
         {
-          "productId": 8,
-          "productName": "Berry Twist",
+          "productId": 1,
+          "productName": "Fresh Mint",
           "quantity": 1,
-          "price": 48
+          "price": 20
+        },
+        {
+          "productId": 2,
+          "productName": "Mouthwash Bits",
+          "quantity": 1,
+          "price": 20
         }
       ],
-      "totalAmount": 48,
-      "createdAt": "2025-08-31T14:45:07.755Z",
+      "createdAt": "2025-09-16T16:27:08.002Z",
       "status": "completed"
     }
   ]
