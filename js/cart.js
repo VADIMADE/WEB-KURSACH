@@ -158,33 +158,60 @@ async function updateQuantity(itemId, change) {
 
 async function createOrder(cartItems) {
   try {
+    console.log('Creating order with items:', cartItems);
+    
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+      throw new Error('User not logged in');
+    }
+    
     const orderId = await getNextOrderId();
+    
+    // Рассчитываем общую сумму
+    const totalAmount = cartItems.reduce((total, item) => {
+      const price = parseFloat(item.product.price1 || item.product.price2 || 0);
+      return total + (price * item.quantity);
+    }, 0);
     
     const order = {
       id: orderId.toString(),
       userId: currentUser.id,
-      items: cartItems.filter(item => item.product).map(item => {
+      items: cartItems.map(item => {
         const price = parseFloat(item.product.price1 || item.product.price2 || 0);
         return {
           productId: parseInt(item.productId),
           productName: item.product.title1 || 'Unnamed Product',
           quantity: item.quantity,
-          price: price
+          price: price,
+          image: item.product.image // добавляем изображение для истории заказов
         };
       }),
+      totalAmount: totalAmount,
       createdAt: new Date().toISOString(),
       status: 'completed'
     };
 
+    console.log('Order to be created:', order);
+
     const response = await fetch(`${API_URL}/orders`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify(order)
     });
 
-    if (!response.ok) throw new Error('Failed to create order');
-    return await response.json();
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Order creation failed:', response.status, errorText);
+      throw new Error(`Failed to create order: ${errorText}`);
+    }
+
+    const createdOrder = await response.json();
+    console.log('Order created successfully:', createdOrder);
+    return createdOrder;
+    
   } catch (error) {
     console.error('Error creating order:', error);
     throw error;

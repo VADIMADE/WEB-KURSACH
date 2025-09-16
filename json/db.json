@@ -353,26 +353,5 @@
       "author": "Петя Петров"
     }
   ],
-  "orders": [
-    {
-      "id": "1",
-      "userId": "4",
-      "items": [
-        {
-          "productId": 1,
-          "productName": "Fresh Mint",
-          "quantity": 1,
-          "price": 20
-        },
-        {
-          "productId": 2,
-          "productName": "Mouthwash Bits",
-          "quantity": 1,
-          "price": 20
-        }
-      ],
-      "createdAt": "2025-09-16T16:27:08.002Z",
-      "status": "completed"
-    }
-  ]
+  "orders": []
 }
