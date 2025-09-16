@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/media-css/mediaAdmin.css">
   <title>ADMIN</title>
 </head>
 
@@ -31,12 +32,14 @@
             <a class="header-link" href="about.html">ABOUT US</a>
           </li>
           <li class="header-item">
-            <a class="header-link" href="#!">SUSTAINABILITY</a>
+            <a class="header-link" href="reviews.html">REVIEWS</a>
           </li>
         </ul>
       </nav>
     
-      <img class="header-logo" src="../img/header-logo.png" alt="logo-Bite">
+      <a href="index.html">
+        <img class="header-logo" src="../img/header-logo.png" alt="logo-Bite">
+      </a>
 
       <div class="header-image">
         <a href="favorites.html">
@@ -53,98 +56,94 @@
   </header>
 
   <main class="main">
-      <div class="container">
-          <h1>Admin Panel</h1>
-          
-          <div class="admin-tabs">
-              <button class="tab-btn active" data-tab="products">Products Management</button>
-              <button class="tab-btn" data-tab="feedback">Feedback Management</button>
-          </div>
-
-          <div class="tab-content active" id="products-tab">
-              <!-- Форма управления товарами -->
-              <form id="productForm" class="admin-form">
-                  <input type="hidden" id="productId">
-                  
-                  <div class="input-box">
-                      <input type="text" id="productTitle1" placeholder="Product Name*" required>
-                      <div class="error-message" id="title1Error"></div>
-                  </div>
-                  
-                  <div class="input-box">
-                    <input type="number" id="productPrice2" placeholder="Original Price*" min="0" step="0.01" required>
-                    <div class="error-message" id="price2Error"></div>
-                  </div>
-
-                  <div class="input-box">
-                      <input type="number" id="productPrice1" placeholder="Discounted Price" min="0" step="0.01">
-                  </div>
-                  
-                  <div class="input-box">
-                      <input type="text" id="productCategory" placeholder="Category*" required>
-                      <div class="error-message" id="categoryError"></div>
-                  </div>
-                  
-                  <div class="input-box">
-                      <input type="text" id="productImage" placeholder="Image URL*" required>
-                      <div class="error-message" id="imageError"></div>
-                  </div>
-                  
-                  <div class="input-box">
-                    <input type="number" id="productRating" placeholder="Rating (0-5)*" min="0" max="5" step="0.1" required>
-                    <div class="error-message" id="ratingError"></div>
-                  </div>
-                  
-                  <div class="input-box">
-                      <input type="number" id="productReviews" placeholder="Reviews Count*" min="0" required>
-                      <div class="error-message" id="reviewsError"></div>
-                  </div>
-                  
-                  <div class="input-box">
-                      <input type="number" id="productStars" placeholder="Stars (0-5)*" min="0" max="5" required>
-                      <div class="error-message" id="starsError"></div>
-                  </div>
-                  
-                  <div class="form-buttons">
-                      <button type="submit" id="addProduct" class="btn">Add Product</button>
-                      <button type="button" id="updateProduct" class="btn" disabled>Update Product</button>
-                      <button type="button" id="deleteProduct" class="btn btn-danger" disabled>Delete Product</button>
-                      <button type="button" id="clearForm" class="btn btn-secondary">Clear Form</button>
-                  </div>
-              </form>
-
-              <!-- Список товаров -->
-              <h2>Products List</h2>
-              <div class="products-list" id="adminProductsList">
-                  <p>Loading products...</p>
-              </div>
-          </div>
-
-          <div class="tab-content" id="feedback-tab">
-              <!-- Фильтры отзывов -->
-              <div class="filters">
-                  <div class="input-box">
-                      <label>Filter by Product:</label>
-                      <select id="filterProduct" class="form-select">
-                          <option value="">All Products</option>
-                      </select>
-                  </div>
-                  
-                  <div class="input-box">
-                      <label>Filter by User:</label>
-                      <select id="filterUser" class="form-select">
-                          <option value="">All Users</option>
-                      </select>
-                  </div>
-              </div>
-
-              <!-- Список отзывов -->
-              <h2>Feedback List</h2>
-              <div class="feedback-list" id="feedbackList">
-                  <p>No feedback available</p>
-              </div>
-          </div>
+    <div class="container">
+      <h1>Admin Panel</h1>
+        
+      <div class="admin-tabs">
+          <button class="tab-btn active" data-tab="products">Products Management</button>
+          <button class="tab-btn" data-tab="feedback">Feedback Management</button>
       </div>
+
+      <div class="tab-content active" id="products-tab">
+        <form id="productForm" class="admin-form">
+          <input type="hidden" id="productId">
+              
+          <div class="input-box">
+            <input type="text" id="productTitle1" placeholder="Product Name*" required>
+            <div class="error-message" id="title1Error"></div>
+          </div>
+              
+          <div class="input-box">
+            <input type="number" id="productPrice2" placeholder="Original Price*" min="0" step="0.01" required>
+            <div class="error-message" id="price2Error"></div>
+          </div>
+
+          <div class="input-box">
+            <input type="number" id="productPrice1" placeholder="Discounted Price" min="0" step="0.01">
+          </div>
+              
+          <div class="input-box">
+            <input type="text" id="productCategory" placeholder="Category*" required>
+            <div class="error-message" id="categoryError"></div>
+          </div>
+          
+          <div class="input-box">
+            <input type="text" id="productImage" placeholder="Image URL*" required>
+            <div class="error-message" id="imageError"></div>
+          </div>
+          
+          <div class="input-box">
+            <input type="number" id="productRating" placeholder="Rating (0-5)*" min="0" max="5" step="0.1" required>
+            <div class="error-message" id="ratingError"></div>
+          </div>
+          
+          <div class="input-box">
+            <input type="number" id="productReviews" placeholder="Reviews Count*" min="0" required>
+            <div class="error-message" id="reviewsError"></div>
+          </div>
+          
+          <div class="input-box">
+            <input type="number" id="productStars" placeholder="Stars (0-5)*" min="0" max="5" required>
+            <div class="error-message" id="starsError"></div>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="submit" id="addProduct" class="btn">Add Product</button>
+            <button type="button" id="updateProduct" class="btn" disabled>Update Product</button>
+            <button type="button" id="deleteProduct" class="btn btn-danger" disabled>Delete Product</button>
+            <button type="button" id="clearForm" class="btn btn-secondary">Clear Form</button>
+          </div>
+        </form>
+
+        <h2>Products List</h2>
+        <div class="products-list" id="adminProductsList">
+          <p>Loading products...</p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="feedback-tab">
+        <div class="filters">
+          <div class="input-box">
+            <label>Filter by Product:</label>
+            <select id="filterProduct" class="form-select">
+              <option value="">All Products</option>
+            </select>
+          </div>
+              
+          <div class="input-box">
+            <label>Filter by User:</label>
+            <select id="filterUser" class="form-select">
+              <option value="">All Users</option>
+            </select>
+          </div>
+        </div>
+
+        <h2>Feedback List</h2>
+        <div class="feedback-list" id="feedbackList">
+          <p>No feedback available</p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
@@ -291,6 +290,7 @@
   </footer>
 
   <script src="../js/admin.js"></script>
+  <script src="../js/burgerMenu.js"></script>
 </body>
 
 </html>

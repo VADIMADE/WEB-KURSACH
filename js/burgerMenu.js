@@ -21,13 +21,10 @@ const hamb = document.querySelector("#header-menu-hamb");
 const popup = document.querySelector("#popup");
 const body = document.body;
 
-// Функция для обновления меню в popup
 function updatePopupMenu() {
-  // Всегда получаем свежую версию меню
   const originalMenu = document.querySelector("#menu");
   const menu = originalMenu.cloneNode(true);
   
-  // Проверяем права пользователя для клонированного меню
   const user = JSON.parse(localStorage.getItem('currentUser'));
   const adminLink = menu.querySelector("#adminPanelLink");
   
@@ -48,14 +45,12 @@ function hambHandler(e) {
   popup.classList.toggle("open");
   hamb.classList.toggle("active");
   body.classList.toggle("noscroll");
-  
-  // Обновляем меню при каждом открытии
+
   if (popup.classList.contains("open")) {
     updatePopupMenu();
   }
 }
 
-// Также обновляем меню при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
   const user = JSON.parse(localStorage.getItem('currentUser'));
   const adminLink = document.getElementById('adminPanelLink');
@@ -65,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (adminLink) {
     adminLink.style.display = 'none';
   }
-  
-  // Инициализируем popup меню
+
   updatePopupMenu();
 });

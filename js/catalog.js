@@ -4,7 +4,6 @@ const productsPerPage = 6;
 let currentProductList = [];
 let totalProducts = 0;
 
-// Функция для генерации HTML цены
 function renderPrice(product) {
   // price2 - оригинальная цена, price1 - цена со скидкой
   const discountedPrice = product.price1 ? `<p class="products-price1">$${product.price1}</p>` : '';
@@ -16,7 +15,6 @@ function renderPrice(product) {
     : originalPrice;
 }
 
-// Функция для генерации звездного рейтинга
 function renderStars(rating) {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
@@ -26,7 +24,6 @@ function renderStars(rating) {
   return stars;
 }
 
-// Функция для загрузки продуктов с сервера
 async function fetchProducts(params = {}) {
   try {
     let response = await fetch(`${API_URL}/products`);
@@ -86,7 +83,6 @@ async function fetchProducts(params = {}) {
   }
 }
 
-// Функция для генерации карточек товаров
 function renderProducts(products) {
   const container = document.querySelector('.products-container');
   const noProductsMessage = document.getElementById('no-products-message');
@@ -140,7 +136,6 @@ function renderProducts(products) {
   });
 }
 
-// Функция для обновления пагинации
 function updatePagination() {
   const paginationNumbers = document.getElementById('pagination-numbers');
   const totalPages = Math.ceil(totalProducts / productsPerPage);
@@ -163,7 +158,6 @@ function updatePagination() {
   document.getElementById('next-page').disabled = currentPage === totalPages || totalPages === 0;
 }
 
-// Функция для фильтрации и сортировки продуктов
 async function filterAndSortProducts() {
   const searchInput = document.getElementById('search-input').value;
   const sortValue = document.getElementById('sort-select').value;
@@ -294,7 +288,6 @@ async function addToFavorites(event) {
   }
 }
 
-// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', async () => {
   const products = await fetchProducts();
   currentProductList = products;

@@ -3,121 +3,121 @@ let allProducts = [];
 let allUsers = [];
 
 document.addEventListener('DOMContentLoaded', function() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser || currentUser.role !== 'admin') {
-        alert('Access denied. Admin privileges required.');
-        window.location.href = 'index.html';
-        return;
-    }
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if (!currentUser || currentUser.role !== 'admin') {
+      alert('Access denied. Admin privileges required.');
+      window.location.href = 'index.html';
+      return;
+  }
 
-    initializeAdminPanel();
+  initializeAdminPanel();
 });
 
 async function initializeAdminPanel() {
-    setupTabs();
-    setupEventListeners();
-    await loadProducts();
-    await loadUsersForFilter();
-    await loadFeedback();
-    setupFormValidation();
+  setupTabs();
+  setupEventListeners();
+  await loadProducts();
+  await loadUsersForFilter();
+  await loadFeedback();
+  setupFormValidation();
 }
 
 function setupTabs() {
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            btn.classList.add('active');
-            document.getElementById(`${btn.dataset.tab}-tab`).classList.add('active');
-        });
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(`${btn.dataset.tab}-tab`).classList.add('active');
     });
+  });
 }
 
 function setupEventListeners() {
-    document.getElementById('productForm').addEventListener('submit', handleProductSubmit);
-    document.getElementById('updateProduct').addEventListener('click', updateProduct);
-    document.getElementById('deleteProduct').addEventListener('click', deleteProduct);
-    document.getElementById('clearForm').addEventListener('click', clearForm);
-    
-    document.getElementById('filterProduct').addEventListener('change', loadFeedback);
-    document.getElementById('filterUser').addEventListener('change', loadFeedback);
-    
-    document.getElementById('adminProductsList').addEventListener('click', function(e) {
-        if (e.target.classList.contains('edit-btn')) {
-            const productId = e.target.getAttribute('data-id');
-            editProduct(productId);
-        }
-    });
-    
-    document.getElementById('feedbackList').addEventListener('click', function(e) {
-        if (e.target.classList.contains('delete-feedback')) {
-            const feedbackId = e.target.getAttribute('data-id');
-            deleteFeedback(feedbackId);
-        }
-    });
-    
-    const inputs = document.querySelectorAll('#productForm input[required]');
-    inputs.forEach(input => {
-        let wasFocused = false;
-        
-        input.addEventListener('focus', () => {
-            wasFocused = true;
-        });
-        
-        input.addEventListener('input', () => {
-            if (wasFocused) {
-                validateForm();
-            }
-        });
-        
-        input.addEventListener('blur', () => {
-            validateForm();
-        });
-    });
+  document.getElementById('productForm').addEventListener('submit', handleProductSubmit);
+  document.getElementById('updateProduct').addEventListener('click', updateProduct);
+  document.getElementById('deleteProduct').addEventListener('click', deleteProduct);
+  document.getElementById('clearForm').addEventListener('click', clearForm);
+  
+  document.getElementById('filterProduct').addEventListener('change', loadFeedback);
+  document.getElementById('filterUser').addEventListener('change', loadFeedback);
+  
+  document.getElementById('adminProductsList').addEventListener('click', function(e) {
+      if (e.target.classList.contains('edit-btn')) {
+          const productId = e.target.getAttribute('data-id');
+          editProduct(productId);
+      }
+  });
+  
+  document.getElementById('feedbackList').addEventListener('click', function(e) {
+      if (e.target.classList.contains('delete-feedback')) {
+          const feedbackId = e.target.getAttribute('data-id');
+          deleteFeedback(feedbackId);
+      }
+  });
+  
+  const inputs = document.querySelectorAll('#productForm input[required]');
+  inputs.forEach(input => {
+      let wasFocused = false;
+      
+      input.addEventListener('focus', () => {
+          wasFocused = true;
+      });
+      
+      input.addEventListener('input', () => {
+          if (wasFocused) {
+              validateForm();
+          }
+      });
+      
+      input.addEventListener('blur', () => {
+          validateForm();
+      });
+  });
 }
 
 function setupFormValidation() {
-    document.querySelectorAll('.error-message').forEach(el => {
-        el.style.display = 'none';
-    });
-    document.querySelectorAll('.input-box').forEach(box => {
-        box.classList.remove('error');
-    });
+  document.querySelectorAll('.error-message').forEach(el => {
+      el.style.display = 'none';
+  });
+  document.querySelectorAll('.input-box').forEach(box => {
+      box.classList.remove('error');
+  });
 }
 
 function validateForm() {
-    const title1 = document.getElementById('productTitle1').value.trim();
-    const price2 = document.getElementById('productPrice2').value;
-    const category = document.getElementById('productCategory').value.trim();
-    const image = document.getElementById('productImage').value.trim();
-    const rating = document.getElementById('productRating').value;
-    const reviews = document.getElementById('productReviews').value;
-    const stars = document.getElementById('productStars').value;
-    
-    const isTitleValid = title1.length >= 2;
-    const isPrice2Valid = price2 && parseFloat(price2) > 0;
-    const isCategoryValid = category.length >= 2;
-    const isImageValid = image.length >= 5;
-    const isRatingValid = rating && parseFloat(rating) >= 0 && parseFloat(rating) <= 5;
-    const isReviewsValid = reviews && parseInt(reviews) >= 0;
-    const isStarsValid = stars && parseInt(stars) >= 0 && parseInt(stars) <= 5;
-    
-    showError('title1Error', isTitleValid, 'Product name must be at least 2 characters');
-    showError('price2Error', isPrice2Valid, 'Original price must be greater than 0');
-    showError('categoryError', isCategoryValid, 'Category must be at least 2 characters');
-    showError('imageError', isImageValid, 'Image URL is required');
-    showError('ratingError', isRatingValid, 'Rating must be between 0 and 5');
-    showError('reviewsError', isReviewsValid, 'Reviews count must be 0 or greater');
-    showError('starsError', isStarsValid, 'Stars must be between 0 and 5');
-    
-    const isFormValid = isTitleValid && isPrice2Valid && isCategoryValid && 
-                       isImageValid && isRatingValid && isReviewsValid && isStarsValid;
-    const productId = document.getElementById('productId').value;
-    
-    document.getElementById('addProduct').disabled = !isFormValid || productId !== '';
-    document.getElementById('updateProduct').disabled = !isFormValid || productId === '';
-    document.getElementById('deleteProduct').disabled = productId === '';
+  const title1 = document.getElementById('productTitle1').value.trim();
+  const price2 = document.getElementById('productPrice2').value;
+  const category = document.getElementById('productCategory').value.trim();
+  const image = document.getElementById('productImage').value.trim();
+  const rating = document.getElementById('productRating').value;
+  const reviews = document.getElementById('productReviews').value;
+  const stars = document.getElementById('productStars').value;
+  
+  const isTitleValid = title1.length >= 2;
+  const isPrice2Valid = price2 && parseFloat(price2) > 0;
+  const isCategoryValid = category.length >= 2;
+  const isImageValid = image.length >= 5;
+  const isRatingValid = rating && parseFloat(rating) >= 0 && parseFloat(rating) <= 5;
+  const isReviewsValid = reviews && parseInt(reviews) >= 0;
+  const isStarsValid = stars && parseInt(stars) >= 0 && parseInt(stars) <= 5;
+  
+  showError('title1Error', isTitleValid, 'Product name must be at least 2 characters');
+  showError('price2Error', isPrice2Valid, 'Original price must be greater than 0');
+  showError('categoryError', isCategoryValid, 'Category must be at least 2 characters');
+  showError('imageError', isImageValid, 'Image URL is required');
+  showError('ratingError', isRatingValid, 'Rating must be between 0 and 5');
+  showError('reviewsError', isReviewsValid, 'Reviews count must be 0 or greater');
+  showError('starsError', isStarsValid, 'Stars must be between 0 and 5');
+  
+  const isFormValid = isTitleValid && isPrice2Valid && isCategoryValid && 
+                      isImageValid && isRatingValid && isReviewsValid && isStarsValid;
+  const productId = document.getElementById('productId').value;
+  
+  document.getElementById('addProduct').disabled = !isFormValid || productId !== '';
+  document.getElementById('updateProduct').disabled = !isFormValid || productId === '';
+  document.getElementById('deleteProduct').disabled = productId === '';
 }
 
 function showError(elementId, isValid, message) {
@@ -137,7 +137,6 @@ function showError(elementId, isValid, message) {
     }
 }
 
-// ========== PRODUCT MANAGEMENT ==========
 async function loadProducts() {
     try {
         const response = await fetch(`${API_URL}/products`);
@@ -320,7 +319,6 @@ function clearForm() {
     setupFormValidation();
 }
 
-// ========== FEEDBACK MANAGEMENT ==========
 async function loadUsersForFilter() {
     try {
         const response = await fetch(`${API_URL}/users`);

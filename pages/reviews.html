@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/reviews.css">
+  <link rel="stylesheet" href="../css/media-css/mediaReviews.css">
   <title>REVIEWS</title>
 </head>
 
@@ -31,12 +32,14 @@
             <a class="header-link" href="about.html">ABOUT US</a>
           </li>
           <li class="header-item">
-            <a class="header-link" href="#!">SUSTAINABILITY</a>
+            <a class="header-link" href="reviews.html">REVIEWS</a>
           </li>
         </ul>
       </nav>
     
-      <img class="header-logo" src="../img/header-logo.png" alt="logo-Bite">
+      <a href="index.html">
+        <img class="header-logo" src="../img/header-logo.png" alt="logo-Bite">
+      </a>
 
       <div class="header-image">
         <a href="favorites.html">
@@ -54,7 +57,17 @@
 
   <main class="main">
     <div class="container">
+      <div class="reviews-container">
+        <h1 class="reviews-title">Customer Reviews</h1>
+        
+        <div id="reviews-form-container">
 
+        </div>
+
+        <div class="reviews-list" id="reviews-list">
+
+        </div>
+      </div>
     </div>
   </main>
 
@@ -200,6 +213,9 @@
       </nav>
     </div>
   </footer>
+
+  <script src="../js/burgerMenu.js"></script>
+  <script src="../js/reviews.js"></script>
 </body>
 
 </html>

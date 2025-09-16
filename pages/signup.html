@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/signup.css">
+  <link rel="stylesheet" href="../css/media-css/mediaSignup.css">
   <title>SIGNUP</title>
 </head>
 
@@ -31,7 +32,7 @@
             <a class="header-link" href="about.html">ABOUT US</a>
           </li>
           <li class="header-item">
-            <a class="header-link" href="#!">SUSTAINABILITY</a>
+            <a class="header-link" href="reviews.html">REVIEWS</a>
           </li>
         </ul>
       </nav>
@@ -87,28 +88,28 @@
           <div class="input-box">
             <div class="password-options">
               <label>
-                <input type="radio" name="passwordOption" value="auto" checked> Сгенерировать пароль автоматически
+                <input type="radio" name="passwordOption" value="auto" checked> Generate password automatically
               </label>
               <label>
-                <input type="radio" name="passwordOption" value="manual"> Задать пароль вручную
+                <input type="radio" name="passwordOption" value="manual"> Set the password manually
               </label>
             </div>
           </div>
           <div class="input-box manual-password" style="display: none;">
-            <input type="password" placeholder="Пароль" name="password" id="password">
+            <input type="password" placeholder="Password" name="password" id="password">
             <div class="error-message" id="passwordError"></div>
           </div>
           <div class="input-box manual-password" style="display: none;">
-            <input type="password" placeholder="Повторите пароль" name="repeatPassword" id="repeatPassword">
+            <input type="password" placeholder="Repeat password" name="repeatPassword" id="repeatPassword">
             <div class="error-message" id="repeatPasswordError"></div>
           </div>
           <div class="input-box">
             <div class="username-generator">
-              <input type="text" placeholder="Никнейм" name="username" id="username" readonly>
-              <button type="button" id="generateUsername" class="generate-btn">Сгенерировать</button>
+              <input type="text" placeholder="Nickname" name="username" id="username">
+              <button type="button" id="generateUsername" class="generate-btn">Generate</button>
             </div>
             <div class="error-message" id="usernameError"></div>
-            <div class="attempts-counter">Попыток осталось: <span id="attemptsLeft">5</span></div>
+            <div class="attempts-counter">Attempts left: <span id="attemptsLeft">5</span></div>
           </div>     
 
           <div class="checkbox-group">
@@ -269,6 +270,7 @@
   </footer>
 
   <script src="../js/auth.js"></script>
+  <script src="../js/burgerMenu.js"></script>
 </body>
 
 </html>

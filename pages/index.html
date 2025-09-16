@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
+  <link rel="stylesheet" href="../css/preloader.css">
+  <link rel="stylesheet" href="../css/scroll-animations.css">
+  <link rel="stylesheet" href="../css/video-slider.css">
+  <link rel="stylesheet" href="../css/slider.css">
   <link rel="stylesheet" href="../css/media-css/mediaMain.css">
   <title>KURSACH</title>
 </head>
@@ -32,10 +38,10 @@
             <a class="header-link" href="about.html" data-i18n="header-link-about">ABOUT US</a>
           </li>
           <li class="header-item">
-            <a class="header-link" href="#!" data-i18n="header-link-">SUSTAINABILITY</a>
+            <a class="header-link" href="reviews.html" data-i18n="header-link-reviews">REVIEWS</a>
           </li>
           <li class="header-item">
-            <a class="header-link" id="adminPanelLink" href="admin.html" style="display: none;" data-i18n="header-link-admin">ADMIN PANEL</a>
+            <a class="header-link" id="adminPanelLink" href="admin.html" style="display: none" data-i18n="header-link-admin">ADMIN PANEL</a>
           </li>
         </ul>
       </nav>
@@ -139,15 +145,40 @@
 
     <section class="intro-section">
       <div class="container">
-        <div class="intro-sec-video-container">
-          <img class="intro-sec-video-image" src="../img/intro-img.png" alt="video-img">
+        <div class="video-slider">
+          <div class="video-slider-container">
+              <div class="video-slide">
+                  <img class="video-preview" src="../img/intro-img.png" alt="Product Introduction Video">
+                  <button class="video-play-btn" aria-label="Play video"></button>
+                  <iframe class="video-iframe" src="../video/video1.mp4" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowfullscreen>
+                  </iframe>
+              </div>
 
+              <div class="video-slide">
+                  <img class="video-preview" src="../img/intro-img.png" alt="How to Use Bite Products">
+                  <button class="video-play-btn" aria-label="Play video"></button>
+                  <iframe class="video-iframe" src="../video/video2.mp4" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowfullscreen>
+                  </iframe>
+              </div>
 
+              <div class="video-slide">
+                  <img class="video-preview" src="../img/intro-img.png" alt="Sustainability Mission">
+                  <button class="video-play-btn" aria-label="Play video"></button>
+                  <iframe class="video-iframe" src="../video/video3.mp4" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowfullscreen>
+                  </iframe>
+              </div>
+          </div>
         </div>
+        
         <div class="intro-sec-description-container">
           <img class="intro-sec-description-image" src="../img/intro-fastcompany-text.png" alt="fastcompany-text">
           <p class="intro-sec-description-text" data-i18n="intro-sec-description-text">"The Most Creative People in Business 2020"</p>
-
         </div>
       </div>
     </section>
@@ -398,19 +429,47 @@
           <p class="reviews-sec-description" data-i18n="reviews-sec-description">We believe in oral care products that are better for you, and the planet. Every product we make is thoughtfully formulated to keep you smiling bright.</p>
           <a class="reviews-sec-text" href="reviews.html" data-i18n="reviews-sec-text">See more reviews</a>
         </div>
-        <div class="reviews-sec-feedback-container">
-          <div>
-            <div class="reviews-sec-circle"></div>
-          </div>
-          <div>
-            <p class="reviews-sec-feedback-title">Easiest and most effective whitener I’ve tried</p>
-            <p class="reviews-sec-feedback-description">My teeth are very prone to being yellow from medications, and the only whitening that would really do anything was Smile Sciences. This Bite..."</p>
-            <p class="reviews-sec-feedback-text">KATIE S. · WHITENING GEL - SUBSCRIPTION</p>
-          </div>
-          <div>
-            <div class="reviews-sec-circle"></div>
-          </div>
+        
+        <div class="slider">
+            <div class="slider-container">
+                <!-- Slide 1 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <p class="reviews-sec-feedback-title">Easiest and most effective whitener I've tried</p>
+                        <p class="reviews-sec-feedback-description">"My teeth are very prone to being yellow from medications, and the only whitening that would really do anything was Smile Sciences. This Bite whitening gel is amazing!"</p>
+                        <p class="reviews-sec-feedback-text">KATIE S. · WHITENING GEL - SUBSCRIPTION</p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <p class="reviews-sec-feedback-title">Love the eco-friendly approach</p>
+                        <p class="reviews-sec-feedback-description">"I've been using Bite products for over a year now and I'm never going back to traditional toothpaste. The bits work great and I love reducing plastic waste!"</p>
+                        <p class="reviews-sec-feedback-text">MICHAEL T. · FRESH MINT BITS</p>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <p class="reviews-sec-feedback-title">Game changer for travel</p>
+                        <p class="reviews-sec-feedback-description">"These toothpaste bits are perfect for traveling. No more messy tubes or worrying about liquid restrictions. The mint charcoal flavor is my favorite!"</p>
+                        <p class="reviews-sec-feedback-text">SARAH L. · MINT CHARCOAL BITS</p>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <p class="reviews-sec-feedback-title">Noticeable difference in sensitivity</p>
+                        <p class="reviews-sec-feedback-description">"I've always had sensitive teeth, but since switching to Bite, my sensitivity has decreased significantly. Plus the subscription model is so convenient."</p>
+                        <p class="reviews-sec-feedback-text">DAVID K. · BERRY TWIST BITS</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
       </div>
     </section>
   </main>
@@ -572,6 +631,12 @@
   
   <script src="../js/burgerMenu.js"></script>
   <script src="../js/translate.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/accessibility.js"></script>
+  <script src="../js/preloader.js"></script>
+  <script src="../js/scroll-animations.js"></script>
+  <script src="../js/video-slider.js"></script>
+  <script src="../js/slider.js"></script>
 </body>
 
 </html>

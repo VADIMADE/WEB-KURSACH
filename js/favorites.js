@@ -68,7 +68,7 @@ function renderFavorites(products, favorites) {
       <div class="products-card-description-container">
         <div class="products-card-desc-text-container">
           <p class="products-text1">${product.title1}</p>
-          <p class="products-text2">${product.title2}</p>
+          <p class="products-text2">${product.category}</p>
         </div>
         <div class="products-card-desc-price-container">
           ${renderPrice(product)}

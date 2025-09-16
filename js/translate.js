@@ -3,7 +3,7 @@ const i18Obj = {
     //header
     'header-link-shop': 'SHOP',
     'header-link-about': 'ABOUT US',
-
+    'header-link-reviews': 'REVIEWS',
     'header-link-admin': 'ADMIN PANEL',
 
     //main-section
@@ -110,7 +110,7 @@ const i18Obj = {
     //header
     'header-link-shop': 'МАГАЗИН',
     'header-link-about': 'О НАС',
-
+    'header-link-reviews': 'ОТЗЫВЫ',
     'header-link-admin': 'ПАНЕЛЬ АДМИНА',
 
     //main-section
@@ -213,7 +213,6 @@ const i18Obj = {
 };
 
 let currentLang = 'en';
-let currentTheme = 'light';
 
 // Функция перевода
 function getTranslate(lang) {
@@ -234,17 +233,6 @@ function getTranslate(lang) {
   });
   
   currentLang = lang;
-}
-
-// Функция переключения темы
-function toggleTheme() {
-  const body = document.body;
-  body.classList.toggle('dark-theme');
-  
-  currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
-  
-  // Сохраняем в localStorage
-  setLocalStorage();
 }
 
 // Сохранение в localStorage
@@ -281,8 +269,4 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Загрузка сохраненных настроек
   getLocalStorage();
-});
-
-document.getElementById('themeToggle').addEventListener('click', function() {
-  toggleTheme();
 });

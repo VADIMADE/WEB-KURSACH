@@ -64,7 +64,6 @@ async function renderCart() {
     if (!item.product) return;
     
     const product = item.product;
-    // ИСПРАВЛЕНО: используем price1 (со скидкой) если есть, иначе price2
     const price = parseFloat(product.price1 || product.price2 || 0);
     const itemTotal = price * item.quantity;
     totalPrice += itemTotal;
@@ -166,7 +165,6 @@ async function createOrder(cartItems) {
       id: orderId.toString(),
       userId: currentUser.id,
       items: cartItems.filter(item => item.product).map(item => {
-        // Используем price1 (со скидкой) если есть, иначе price2
         const price = parseFloat(item.product.price1 || item.product.price2 || 0);
         return {
           productId: parseInt(item.productId),
@@ -222,21 +220,17 @@ async function checkout() {
       return;
     }
 
-    // Создаем заказ
     await createOrder(validCartItems);
-    
-    // Очищаем корзину
+
     await clearCart();
-    
-    // Правильно рассчитываем общую сумму (используем price1 если есть скидка)
+
     const totalAmount = validCartItems.reduce((total, item) => {
       const price = parseFloat(item.product.price1 || item.product.price2 || 0);
       return total + (price * item.quantity);
     }, 0);
     
     alert(`✅ Purchase successful!\n\nTotal: $${totalAmount.toFixed(2)}\nItems: ${validCartItems.length} product(s)\n\nThank you for your order!`);
-    
-    // Обновляем корзину (она будет пустой)
+
     renderCart();
     
   } catch (error) {
