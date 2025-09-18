@@ -111,15 +111,48 @@
       "id": "11"
     },
     {
-      "title1": "Mouthwash Bits",
-      "price2": 50,
-      "price1": null,
-      "category": "Mouthwash",
+      "title1": "Dental Floss 2",
+      "price2": 75,
+      "price1": 65,
+      "category": "Floss",
       "image": "../img/product4-img.png",
       "rating": 5,
       "reviews": 222,
       "stars": 5,
       "id": "12"
+    },
+    {
+      "id": "13",
+      "title1": "Fresh Mint 2",
+      "price2": 38,
+      "price1": null,
+      "category": "Toothpaste",
+      "image": "../img/product15-img.png",
+      "rating": 5,
+      "reviews": 120,
+      "stars": 5
+    },
+    {
+      "id": "14",
+      "title1": "Mouthwash Bits",
+      "price2": 49,
+      "price1": 39,
+      "category": "Mouthwash",
+      "image": "../img/product16-img.png",
+      "rating": 5,
+      "reviews": 10,
+      "stars": 5
+    },
+    {
+      "id": "15",
+      "title1": "Fresh Breath",
+      "price2": 50,
+      "price1": null,
+      "category": "Mouthwash",
+      "image": "../img/product17-img.png",
+      "rating": 5,
+      "reviews": 1,
+      "stars": 5
     }
   ],
   "favorites": [
@@ -240,25 +273,11 @@
       "addedAt": "2025-09-15T05:37:43.911Z"
     },
     {
-      "id": "c8be",
-      "productId": 2,
-      "userId": "2",
+      "id": "ef96",
+      "productId": "2",
+      "userId": "4",
       "quantity": 1,
-      "addedAt": "2025-09-15T05:41:51.010Z"
-    },
-    {
-      "id": "aa04",
-      "productId": 1,
-      "userId": "2",
-      "quantity": 2,
-      "addedAt": "2025-09-15T05:41:53.503Z"
-    },
-    {
-      "id": "dd1d",
-      "productId": 10,
-      "userId": "2",
-      "quantity": 1,
-      "addedAt": "2025-09-15T15:11:10.377Z"
+      "addedAt": "2025-09-16T16:39:42.825Z"
     }
   ],
   "users": [
@@ -353,5 +372,75 @@
       "author": "Петя Петров"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": "1",
+      "userId": "4",
+      "items": [
+        {
+          "productId": 1,
+          "productName": "Fresh Mint",
+          "quantity": 2,
+          "price": 20,
+          "image": "../img/product1-img.png"
+        },
+        {
+          "productId": 2,
+          "productName": "Mouthwash Bits",
+          "quantity": 1,
+          "price": 20,
+          "image": "../img/product2-img.png"
+        },
+        {
+          "productId": 3,
+          "productName": "Whitening Gel",
+          "quantity": 1,
+          "price": 20,
+          "image": "../img/product3-img.png"
+        }
+      ],
+      "totalAmount": 80,
+      "createdAt": "2025-09-16T16:36:23.415Z",
+      "status": "completed"
+    },
+    {
+      "id": "2",
+      "userId": "4",
+      "items": [
+        {
+          "productId": 9,
+          "productName": "Mint Charcoal",
+          "quantity": 2,
+          "price": 20,
+          "image": "../img/product12-img.png"
+        },
+        {
+          "productId": 8,
+          "productName": "Berry Twist",
+          "quantity": 2,
+          "price": 20,
+          "image": "../img/product11-img.png"
+        }
+      ],
+      "totalAmount": 80,
+      "createdAt": "2025-09-16T16:36:44.778Z",
+      "status": "completed"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "items": [
+        {
+          "productId": 9,
+          "productName": "Mint Charcoal",
+          "quantity": 5,
+          "price": 20,
+          "image": "../img/product12-img.png"
+        }
+      ],
+      "totalAmount": 100,
+      "createdAt": "2025-09-16T16:37:48.814Z",
+      "status": "completed"
+    }
+  ]
 }

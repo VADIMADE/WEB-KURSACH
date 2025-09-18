@@ -272,8 +272,13 @@ async function clearCart() {
 
 async function checkout() {
   try {
+    console.log('=== START CHECKOUT PROCESS ===');
+    
     const cartItems = await fetchCartWithProducts();
+    console.log('Fetched cart items:', cartItems);
+    
     const validCartItems = cartItems.filter(item => item.product);
+    console.log('Valid cart items:', validCartItems);
     
     if (validCartItems.length === 0) {
       alert('Your cart is empty or contains invalid items');
@@ -281,10 +286,12 @@ async function checkout() {
     }
 
     // Создаем заказ
+    console.log('Attempting to create order...');
     const order = await createOrder(validCartItems);
-    console.log('Order created:', order);
+    console.log('Order created successfully:', order);
 
     // Очищаем корзину
+    console.log('Clearing cart...');
     await clearCart();
     console.log('Cart cleared successfully');
 
@@ -293,14 +300,17 @@ async function checkout() {
       return total + (price * item.quantity);
     }, 0);
     
-    alert(`✅ Purchase successful!\n\nTotal: $${totalAmount.toFixed(2)}\nItems: ${validCartItems.length} product(s)\n\nThank you for your order!`);
+    // Показываем уведомление о успешной покупке
+    alert(`✅ Purchase successful!\n\nOrder ID: #${order.id}\nTotal: $${totalAmount.toFixed(2)}\nItems: ${validCartItems.length} product(s)\n\nThank you for your order!`);
 
     // Обновляем отображение корзины
     await renderCart();
     
+    console.log('=== CHECKOUT COMPLETED SUCCESSFULLY ===');
+    
   } catch (error) {
     console.error('Error during checkout:', error);
-    alert('Failed to complete checkout. Please try again.');
+    alert('Failed to complete checkout. Please check console for details and try again.');
   }
 }
 
